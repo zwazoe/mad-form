@@ -309,6 +309,179 @@ field: {
 }
 ````
 
+## Forth Argument is Marel "M" or Tie It. 
+
+````
+const mad = new MAD( req.body, 'name', ["_", "|", "."] , ['attribute', 'sample'], ['field', 'example'] )
+````
+
+The third argument state what you want to Mare or tie. First here' what Mare means. 
+
+### About Mare
+
+Marel requries a multi select field. Users will enter multiple items in multiple fieles.
+
+Lets say you have the folling fields.
+```
+attribute_field
+attribute_value
+attribute_measurement
+```
+and you call this field group attributes. 
+
+In the field, the user may add multiple contents. i.e. Weight| Height| Wdith| Length 
+
+This is cool because you don't have to create a field for those yourself. 
+
+Next the user will put the value for those fields on the value field. 
+```
+attribute_field: Weight| Height|  Wdith|  Length 
+attribute_value: 98| 32|  56|  56
+```
+Then the user will state the type of measurement each fields are using.
+````
+attribute_field: Weight| Height|  Wdith|  Length 
+attribute_value: 98| 32|  56|  56
+attribute_measurement: LB|  Inch|  Inch| Inch
+````
+The only thing the user have to take in consideration is to place each of them in order. 
+
+This will output like this:
+```
+attribute: [
+	{field: weight, value: 98, measurement: LB}
+	{field: height, value: 32, measurement: Inch}
+	{field: width, value: 56, measurement: Inch}
+	{field: length, value: 56, measurement: Inch}
+]
+```
+
+#### Suggar 
+
+Becuase, the form is such a bad ass, you do not need to repeat yourself. 
+
+````
+attribute_field: Weight| Height|  Width |  Length 
+attribute_value: 98| 32|  56|  56
+attribute_measurement: LB|  Inch|  Inch| Inch
+````
+
+because 56 is being used for width, and length. You may just put it once. 
+Same thing with Inch. 
+
+````
+attribute_field: Weight| Height|  Width |  Length 
+attribute_value: 98| 32|  56
+attribute_measurement: LB|  Inch
+````
+
+The form will take the last value of the field in order to complete the mixing. 
+
+#### Marel Arguments
+
+
+````
+const mad = new MAD( req.body, 'name', ["_", "|", "."] , ['attribute', 'sample'], ['field', 'example'] )
+````
+
+Marel is the forth argument. Here, you will simply identify what you are going to mare. In this instance, I going to mare two items: attribute and sample. 
+
+you only have to state the element. 
+
+mad-form will look for fields that contains (not start with) attribute and sample. 
+
+Like so:
+
+````
+attribute_field: Weight| Height|  Width |  Length 
+attribute_value: 98| 32|  56
+attribute_measurement: LB|  Inch
+
+````
+
+all of these contains attribute. So, it will mare the items above. 
+
+The result would be something like this: 
+ 
+````
+ 	attribute:[  
+         {  
+            "measurement":"LB",
+            "field":"Weight ",
+            "value":"32 "
+         },
+         {  
+            "measurement":"Inch",
+            "field":" Height ",
+            "value":" 68 "
+         },
+         {  
+            "measurement":"Inch",
+            "field":" Width ",
+            "value":" 48 "
+         },
+         {  
+            "measurement":"Inch",
+            "field":" Width ",
+            "value":" 56"
+         }
+      ],
+
+````
+## Demarel
+Demarel is great if you want to add variations to your document
+
+## Nullifying. 
+
+If you do not want to mare or demare. You simply want to attache, just add null or leave that argument empty. like so:
+
+````
+const mad = new MAD( req.body, 'name', ["_", "|"])
+````
+
+Be very careful. Because, if you are not mare or demare and you still read have mare and demare elements, mad-form will think you simply wnat to attache. 
+
+For example:
+
+````
+attribute_measurement: "LB|Inch",
+````
+
+this code above will output just like that. It will  not try to work that code. It will think that is what you want. So if you are not going to mare or demare, don't add fields that are designed for mare and demare.
+
+#### Deligence
+
+I wouldn't be a Ninja if I did not leave a fallback plan. If you do have fields that are designed for mare and demare but for whatever reasons, you do not want to add them to your payload.
+
+All you have to do is explicitly state null for mare and/or demare. And then identify the field that you want to attache. 
+
+Like so:
+
+````
+//remove only mare but don't inlcude mare field in the payload: 
+
+const mad = new MAD( req.body, 'name', ["_", "|", "."] ,null, ['field', 'example'], ['public', 'published', 'owner', 'creator'] )
+````
+
+````
+//remove only demare but don't inlcude demare field in the payload: 
+
+const mad = new MAD( req.body, 'name', ["_", "|", "."] , ['attribute', 'sample'], null, ['public', 'published', 'owner', 'creator'] )
+````
+````
+//remove mare and demare and don't inlcude them in the payload.
+
+const mad = new MAD( req.body, 'name', ["_", "|", "."] , null, null, ['public', 'published', 'owner', 'creator'] )
+````
+
+
+Remember, if you don't want to include all of the keys that are in the data source, you have to explicity state the keys you want to include. 
+
+
+
+
+
+
 
 
 
