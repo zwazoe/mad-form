@@ -1,516 +1,275 @@
-# router-post
-DRY method of creating and posting to the database. You will no longer need to copy and paste the same things over and over again.
+# mad-form
+Mad form allows users to add multiple items with one click.
 
-## Why router post:
+## Why mad-form:
 
-Router Post is very lightweight and you won't have to worry about much logics when posting to the database. You simply  have to tell router-post what is what.
+Imagine creating a form for sizes for all type of products. Sizes may comes in lenght, width, height, volume, area...etc. 
+You would also have to account for measurements. This may require you to add fields for each posibilities. Which maybe a nightmare. 
 
-### small project
-Lets create a small project where you must add data to the database. The data will consist of objects and arrays.
+mad-form changes this. You can let the user defined their own fields, measurements, and values. 
 
-Let's implement the model.
+Here's a code snippet. 
 
-````
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+## The Power
 
-// Address Schema
-const PlaceSchema = new Schema({
-	owner: String,
-
-	creator: {
-		type: Schema.Types.ObjectId,
-		ref: 'users'
-	},
-	id: {
-		type: 'string'
-	},
-
-	name: String,
-	formatted_address: String,
-	formatted_phone_number: String,
-	types: [ String ],
-	label: String,
-	icon: {
-		type: 'string'
-	},
-	place_id: {
-		type: 'string'
-	},
-
-	location: {},
-	created_at: {
-		type: Date,
-		default: Date.now()
-	},
-	updated_at: {
-		type: Date
-	},
-	notes: [
-		{
-			creator: {
-				type: Schema.Types.ObjectId,
-				ref: 'users'
-			},
-			detail: {
-				type: String
-			},
-			created_at: {
-				type: Date,
-				default: Date.now()
-			}
-		}
-	],
-	address: [
-		{
-			creator: {
-				type: Schema.Types.ObjectId,
-				ref: 'users'
-			},
-			apartment: String,
-			category: [ String ],
-			created_at: {
-				type: Date,
-				default: Date.now()
-			}
-		}
-	]
-});
-
-module.exports = Place = mongoose.model('place', PlaceSchema);
+With this simple code...
 
 ````
+const { MAD } = require('mad-form');
 
+const mad = new MAD( req.body, 'name', ["_", "|", "."] , ['attribute', 'sample'], ['field', 'example'] )
 
-
-- Then, you should create a place.js file in your routes/api directory. And import router-post. 
+const data = JSON.stringify(mad.run());
 
 ````
-const express = require('express');
-const router = express.Router();
-const mongoose = require('mongoose');
-const passport = require('passport');
-const { RouterPost } = require('router-post');
+... you'll get this output
+
 ````
+[  
+   {  
+      "name":"Medium ",
+      "attribute":[  
+         {  
+            "measurement":"LB",
+            "field":"Weight ",
+            "value":"32 "
+         },
+         {  
+            "measurement":"Inch",
+            "field":" Height ",
+            "value":" 68 "
+         },
+         {  
+            "measurement":"Inch",
+            "field":" Width ",
+            "value":" 48 "
+         },
+         {  
+            "measurement":"Inch",
+            "field":" Width ",
+            "value":" 56"
+         }
+      ],
+      "sample":[  
+         {  
+            "measurement":"Kilo",
+            "field":"Volume ",
+            "value":"98  "
+         },
+         {  
+            "measurement":"Meter",
+            "field":" Mass ",
+            "value":" 32 "
+         },
+         {  
+            "measurement":"Meter",
+            "field":" Width ",
+            "value":" 56"
+         }
+      ],
+      "field":{  
+         "variation":[  
+            "5bb63f0be7179a6602f3e1e4",
+            "5bb63f27e7179a6602f3e1eb",
+            "5bb63f27e7179a6602f3e1eb"
+         ],
+         "warranty":[  
+            "5bb6400ae7179a6602f3e23c",
+            "5bb64024e7179a6602f3e23e",
+            "5bb64017e7179a6602f3e23d"
+         ],
+         "timing":[  
+            "5bb64059e7179a6602f3e24d",
+            "5bb64059e7179a6602f3e24d",
+            "5bb64059e7179a6602f3e24d"
+         ],
+         "content":[  
+            "5b2b6019e7179a589286065d"
+         ],
+         "group":[  
 
-- It is a class so you'll have to instantiate it:
-````
-let routerPost = new RouterPost();
-````
+         ]
+      },
+      "example":{  
+         "variation":[  
+            "5bb63f0be7179a6602f3e1e4",
+            "5bb63f27e7179a6602f3e1eb",
+            "5bb63f27e7179a6602f3e1eb"
+         ],
+         "warranty":[  
+            "5bb6400ae7179a6602f3e23c",
+            "5bb64024e7179a6602f3e23e",
+            "5bb64017e7179a6602f3e23d"
+         ],
+         "timing":[  
+            "5bb64059e7179a6602f3e24d",
+            "5bb64059e7179a6602f3e24d",
+            "5bb64059e7179a6602f3e24d"
+         ],
+         "content":[  
+            "5b2b6019e7179a589286065d"
+         ],
+         "group":[  
 
-- Then, you'll start your express, as you normally would:
-````
-router.post('/create-place', passport.authenticate('jwt', { session: false }), (req, res) => {
-  // router-post goes here
-}
-````
+         ]
+      },
+      "public":"true",
+      "published":"true",
+      "owner":"5b1e87c4f9e3a6ddec3a6f1b",
+      "creator":"5b1e87c4f9e3a6ddec3a6f1b",
+      "updated_at":1545501570237
+   },
+   {  
+      "name":" Large",
+      "attribute":[  
+         {  
+            "measurement":"LB",
+            "field":"Weight ",
+            "value":"32 "
+         },
+         {  
+            "measurement":"Inch",
+            "field":" Height ",
+            "value":" 68 "
+         },
+         {  
+            "measurement":"Inch",
+            "field":" Width ",
+            "value":" 48 "
+         },
+         {  
+            "measurement":"Inch",
+            "field":" Width ",
+            "value":" 56"
+         }
+      ],
+      "sample":[  
+         {  
+            "measurement":"Kilo",
+            "field":"Volume ",
+            "value":"98  "
+         },
+         {  
+            "measurement":"Meter",
+            "field":" Mass ",
+            "value":" 32 "
+         },
+         {  
+            "measurement":"Meter",
+            "field":" Width ",
+            "value":" 56"
+         }
+      ],
+      "field":{  
+         "variation":[  
+            "5bb63f0be7179a6602f3e1e4",
+            "5bb63f27e7179a6602f3e1eb",
+            "5bb63f27e7179a6602f3e1eb"
+         ],
+         "warranty":[  
+            "5bb6400ae7179a6602f3e23c",
+            "5bb64024e7179a6602f3e23e",
+            "5bb64017e7179a6602f3e23d"
+         ],
+         "timing":[  
+            "5bb64059e7179a6602f3e24d",
+            "5bb64059e7179a6602f3e24d",
+            "5bb64059e7179a6602f3e24d"
+         ],
+         "content":[  
+            "5b2b6019e7179a589286065d"
+         ],
+         "group":[  
 
-- now, the sweet goodness starts. 
-If you weren't using router post, you'll probably have to do the following for each fields:
-````
-if (req.body.creator) profileFields.handle = req.body.creator;
-````
-imagine if you have 50 field. it would be a lots of copy and paste. 
+         ]
+      },
+      "example":{  
+         "variation":[  
+            "5bb63f0be7179a6602f3e1e4",
+            "5bb63f27e7179a6602f3e1eb",
+            "5bb63f27e7179a6602f3e1eb"
+         ],
+         "warranty":[  
+            "5bb6400ae7179a6602f3e23c",
+            "5bb64024e7179a6602f3e23e",
+            "5bb64017e7179a6602f3e23d"
+         ],
+         "timing":[  
+            "5bb64059e7179a6602f3e24d",
+            "5bb64059e7179a6602f3e24d",
+            "5bb64059e7179a6602f3e24d"
+         ],
+         "content":[  
+            "5b2b6019e7179a589286065d"
+         ],
+         "group":[  
 
-With router post, all you have to do is create an array and add the field to the array. 
-````
-let mapPayload = [
-		'creator',
-		'owner',
-		'id',
-		'place_id',
-		'icon',
-		'name',
-		'formated_address',
-		'formated_phone_number',
-		'location',
-		'label',
-		'types',
-	];
-  ````
-  
-  - You may then call routerPost.objectify to turn your payload to the desired data.
-  The first argument is where the payload is comming from. The second argument is the actual payload map. 
- 
-  ````
-  	let data = routerPost.objectify(req.body.place, mapPayload);
-  ````
-   Their is a third argument which is called the separator. The default is '-'. Therefore, if you have any field that includes a -, you'll have to change the separator. 
-  
-  for example. If formated_address was written formated-address. 
-  but you did not want formated-address to be an array. 
-  you would have to include a third argument.
-  
-  ````
-  let data = routerPost.objectify(req.body.place, mapPayload, '|');
-  ````
-  But in my case, I could simply leave it without a seperator because there is no conflict since I am not using the default separator '-'
- 
-  In order to trully appreciated router-post, here's a before and after of the code so far:
-  
-  BEFORE using Router-Post
-  
-````
-
-router.post('/', passport.authenticate('jwt', { session: false }), (req, res) => {
-
-	const placeFields = {};
-	placeFields.user = req.user.id;
-	if (req.body.creator) placeFields.handle = req.body.creator;
-	if (req.body.owner) placeFields.company = req.body.owner;
-	if (req.body.id) placeFields.website = req.body.id;
-	if (req.body.place_id) placeFields.location = req.body.place_id;
-	if (req.body.icon) placeFields.bio = req.body.icon;
-  	if (req.body.name) placeFields.website = req.body.name;
-	if (req.body.formated_address) placeFields.location = req.body.formated_address;
-	if (req.body.formated_phone_number) placeFields.bio = req.body.formated_phone_number;
-  	if (req.body.location) placeFields.website = req.body.location;
-	if (req.body.label) placeFields.location = req.body.label;
-	if (req.body.types) placeFields.bio = req.body.types;
- }
- 	Place.findOne({ user: req.user.id }).then((place) => {
-		if (place) {
-			// Update
-			Place.findOneAndUpdate({ user: req.user.id }, { $set: placeFields }, { new: true }).then((place) =>
-				res.json(place)
-			);
-		} else {
-			// Create
-
-			// Check if handle exists
-			Place.findOne({ handle: placeFields.handle }).then((place) => {
-				if (place) {
-					errors.handle = 'That handle already exists';
-					res.status(400).json(errors);
-				}
-
-				// Save Place
-				new Place(placeFields).save().then((place) => res.json(place));
-			});
-		}
-	});
-});
-````
-  
-  AFTER:
-  
-````
-
-router.post('/', passport.authenticate('jwt', { session: false }), (req, res) => {
-	let mapPayload = [
-		'creator',
-		'owner',
-		'id',
-		'place_id',
-		'icon',
-		'name',
-		'formated_address',
-		'formated_phone_number',
-		'location',
-		'label',
-		'types',
-	];
-	let data = routerPost.objectify(req.body.place, mapPayload);
-	routerPost.findPostOne(Place, [ data, req, res ], { id: data.id }, []);
-})
- ````
-  
-  so FAR so DRY (haha)
-  
-  I will tell you about about routerPost.findPostOne later. Hold on a sec.
-  
-  - Let say you want to add an item with array. 
-  The old way, you may have to do something like so:
- ````
-
-	if (typeof req.body.category !== 'undefined') {
-		placeFields.category = req.body.category.split(',');
-	}
-  ````
-  And if you'll have to focus on each individual field depending on its logic.
-  
-  With router-post, you simply have to state the array and what it is:
-  
-   
-  ````
-const express = require('express');
-const router = express.Router();
-const mongoose = require('mongoose');
-const passport = require('passport');
-
-// Load Place  Model
-const Place = require('../../../models/people/Place');
-// Load User Model
-const User = require('../../../models/people/User');
-
-router.post('/', passport.authenticate('jwt', { session: false }), (req, res) => {
-
-
-	let mapPayload = [
-		'creator',
-		'owner',
-		'id',
-		'place_id',
-		'icon',
-		'name',
-		'formated_address',
-		'formated_phone_number',
-		'location',
-		'label',
-		'types',
-    	'address-apartment',
-		'address-category',
-		'address-creator',
-		'notes-detail',
-		'notes-creator',
-	];
-
-  let data = routerPost.objectify(req.body.place, mapPayload, '-');
-
-	routerPost.findPostOne(Place, [ data, req, res ], { id: data.id }, []);
-})
-  
-  ````
-  In the above code, I added the fields as I normally would. For example: creator, owner, id. etc. 
-
-  Then, I added the arrays. I used a dash "-" to separator the arrays. i.e. address-apartment, address-category, note-detail
-  
-  This state that address and notes are the keys that contain the array. 
-
-  Here's a snippet of the model.
-
-  ````
-  address: [{
-    apartment: String,
-    category: String,
-    creator: {
-       type: Schema.Types.ObjectId,
-       ref: 'users' 
-    }
-  }]
-  ````
- 
- Notice, in Objectifying the data. I  include a separator. The separator can be whatever you want it to be. It can even be a string. 
- 
- address-apartment. The "-" is the separator.
- If you want, you could have change the separator to a pipe like so |
- 
- ````
-    	'address|apartment',
-		'address|category',
-		'address|creator',
-		'notes|detail',
-		'notes|creator',
- 
- ````
- 
- If I were to use the above code where I use pipes (|) instead of dashes (-), I would have to state pipes (|) as my separator.
- ````
- // add the array separator and the array iteself
-  let data = routerPost.objectify(req.body.place, mapPayload, '|');
- ````
- 
- Now, such a complex router is simplified and dried up using router-post:
- 
- - Now, lets focus the following
- ````
-	routerPost.findPostOne(Place, [ data, req, res ], { id: data.id }, []);
- ````
- 
-The first argument is the actual model. 
-
-The second argument is an array that includes data, requests and responses.
-
-The third argument is the condition. If there is an id that matched data.id, we should update instead of create. If not, we should create. 
- 
- 
- - Lets say you want to add additional fields. Fields that you are not getting from the datasource (req.body). 
- 
- if you want to add an additional field to the data. Let's say you want to created to default updated_at to Date.now().
- You will do the following:
- 
- ````
- 	data.updated_at = Date.now();
-	routerPost.findPostOne(Place, [ data, req, res ], { id: data.id }, [])
-  
- ````
- And of course, you would of pass it with the rest of the field above. This is simply if you wanted to pass it in the router instead of in the request. 
- 
- - Lets say you wanted to add additional field to the arrays itselves. Lets say you wanted to add an updated_at default to the address array and the notes array. 
- 
- You would do the following.
-
-  ````
- routerPost.findPostOne(Place, [ data, req, res ], { id: data.id }, [
-	{
-		condition: true,
-		push: [
-			{
-				field: 'address',
-				value: data.address[0]
-			}
-		]
-	},
-	{
-		condition: data.notes[0].creator !== undefined,
-		push: [
-			{
-				field: 'notes',
-				value: data.notes[0]
-			}
-		],
-		addons: [
-			{
-				field: 'updated_at',
-				value: Date.now()
-			}
-		]
-	}
+         ]
+      },
+      "public":"true",
+      "published":"true",
+      "owner":"5b1e87c4f9e3a6ddec3a6f1b",
+      "creator":"5b1e87c4f9e3a6ddec3a6f1b",
+      "updated_at":1545501570237
+   }
 ]
-  
-  ````
-  
-Let's explain the above code. 
-
-First, router-post already identified your arrays. It simply identify the array. You'll then have to tell it what to push. 
-
-I did this for a reason. Most likely, you may want to create a different route that will add your address or notes. This technique able you to do that. Here's how it works. 
-
-You wil include your condition. If the condition is true, it will work. If you don't have a logic for this, just pass in true. 
-
-````
-condition: data.address[0].creator !== undefined
-
-or
-
-condition: true
 
 ````
 
-then, you will create the items that you want to push. This is an array, you can add as many item as you like. 
-````
-	push: [
-		{
-			field: 'address',
-			value: data.address[0]
-		}
-	]
+## Wow... Zwazoe... how does it work
+
+Allow me to explain.
+
+First, here's the form request data. Normally, you would get this from the actuall form. But for demonstration purposes, I have hard code it here. 
+
 
 ````
-If you want to manually add an item to this array, you would add the addons like so:
 
-````
-{
-	condition: data.address[0].creator !== undefined,
-	push: [
-		{
-			field: 'address',
-			value: data.address[0]
-		}
-	],
-	addons: [
-		{
-			field: 'updated_at',
-			value: Date.now()
-		}
-	]
-}
-````
-
-## Ready Script
-
-````
-const express = require('express');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const passport = require('passport');
-const path = require('path');
-const app = express();
-
-const Place = require('./models/Place');
-
-const { RouterPost } = require('../index');
-
-let routerPost = new RouterPost();
+const { M, A, D, MAD } = require('../index.js');
 
 let req = {
 	body: {
-		creator: 'faslfjdsfsfs',
-		owner: 'ajslfjsalfsfdjfs',
-		id: 'kafdlsjfsfjfowfwe',
-		place_id: 'fakfwrewerjwtjet',
-		icon: 'https://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71.png',
-		name: 'Naomi\'s Garden Restaurant & Lounge',
-		'address-creator': 'fasdghdhfd',
-		'address-apartment': '23',
-		'address-category': [ 'home', 'business' ],
-		'notes-creator': 'sfjsfljsowrwhrwfsfs',
-		'notes-detail_information_comment_go': 'This place have a to go section and a great garden in the back. You would love it. Trust and believe me. '
+        name: "Medium | Large",
+        sample_measurement: "Kilo|Meter",
+        sample_field: "Volume | Mass | Width ",
+        sample_value: "98  | 32 | 56",
+        attribute_measurement: "LB|Inch",
+        attribute_field: "Weight | Height | Width ",
+        attribute_value: "32 | 68 | 48 | 56",
+        field_name: "variation| warranty| timing|content|group",
+        field_variation: "variation.5bb63f0be7179a6602f3e1e4| variation.5bb63f27e7179a6602f3e1eb| warranty.5bb6400ae7179a6602f3e23c|timing.5bb64059e7179a6602f3e24d| timing.5bb64059e7179a6602f3e24d|  warranty.5bb64024e7179a6602f3e23e|variation.5bb63f27e7179a6602f3e1eb| timing.5bb64059e7179a6602f3e24d| warranty.5bb64017e7179a6602f3e23d| content.5b2b6019e7179a589286065d",
+        example_name: "variation| warranty| timing|content|group",
+        example_variation: "variation.5bb63f0be7179a6602f3e1e4| variation.5bb63f27e7179a6602f3e1eb| warranty.5bb6400ae7179a6602f3e23c|timing.5bb64059e7179a6602f3e24d| timing.5bb64059e7179a6602f3e24d|  warranty.5bb64024e7179a6602f3e23e|variation.5bb63f27e7179a6602f3e1eb| timing.5bb64059e7179a6602f3e24d| warranty.5bb64017e7179a6602f3e23d| content.5b2b6019e7179a589286065d",
+        public: "true",
+        published: "true",
+        owner: "5b1e87c4f9e3a6ddec3a6f1b",
+        creator: "5b1e87c4f9e3a6ddec3a6f1b",
+        updated_at: Date.now(),
+
 	}
 };
 
-let mapPayload = [
-	'creator',
-	'owner',
-	'id',
-	'place_id',
-	'icon',
-	'name',
-	'formated_address',
-	'formated_phone_number',
-	'location',
-	'label',
-	'types',
-	'address-apartment',
-	'address-category',
-	'address-creator',
-	'notes-detail',
-	'notes-creator'
-];
-
-let data = routerPost.objectify(req.body, mapPayload);
-
-data.updated_at = Date.now();
-router.get('/current-place', passport.authenticate('jwt', { session: false }), (req, res) => {
-
-routerPost.findPostOne(Place, [data, req, res], { id: data.id }, [
-		{
-			condition: data.address[0].creator !== undefined,
-			push: [
-				{
-					field: 'address',
-					value: data.address[0]
-				}
-			],
-			addons: [
-				{
-					field: 'updated_at',
-					value: Date.now()
-				}
-			]
-		},
-		{
-			condition: data.notes[0].creator !== undefined,
-			push: [
-				{
-					field: 'notes',
-					value: data.notes[0]
-				}
-			],
-			addons: [
-				{
-					field: 'updated_at',
-					value: Date.now()
-				}
-			]
-		}
-	]);
-
-})
 
 
 
+const mad = new MAD(
+    req.body, // data source
+    'name', // the form name
+    ["_", "|", "."] , // spliters: key, value, and options (opitions uses on demarel)
+    ['attribute', 'sample'], // melel field which will get by rows.
+    ['field', 'example'] //// demarel fields which will mix and match it. 
+    
+)
+
+const data = JSON.stringify(mad.run());
+
+
+
+console.log(data)
 
 
 ````
+
+
+
 

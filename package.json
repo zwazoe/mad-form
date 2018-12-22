@@ -10,7 +10,7 @@
 		"type": "git",
 		"url": "git+https://github.com/zwazoe/mad-form.git"
 	},
-	"keywords": [ "form", "forms", "mad form", "mad-form", "excel", "user experience", "Ux", "killer app", "post", "api", "database", "mongoDB", "sqlserver", "postgresql", "nosql", "node", "react", "react.js", "express", "mongoose", "bodyParser", "router" ],
+	"keywords": [ "form", "forms", "mad form", "mad-form", "excel", "user experience", "Ux", "killer app", "post", "api", "database", "mongoDB", "sqlserver", "postgresql", "nosql", "node", "react", "react.js", "express", "mongoose", "bodyParser", "router", "angular", "vue" ],
 	
 	"author": "Lesly ZwaZoe Revenge",
 	"license": "MIT",
