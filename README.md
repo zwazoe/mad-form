@@ -270,6 +270,46 @@ console.log(data)
 
 ````
 
+### Adding multiple items at once. 
+
+#### Data Source
+
+````
+const mad = new MAD( req.body, 'name', ["_", "|", "."] , ['attribute', 'sample'], ['field', 'example'] )
+````
+
+The first argument is the data source. In the instance above, the data source is req.body. 
+
+#### Separators
+
+The second arguments is an array that contains separators. Pay attention tot he input below;
+
+````
+field_variation: "variation.5bb63f0be7179a6602f3e1e4| variation.5bb63f27e7179a6602f3e1eb| warranty.5bb6400ae7179a6602f3e23c|timing.5bb64059e7179a6602f3e24d| timing.5bb64059e7179a6602f3e24d|  warranty.5bb64024e7179a6602f3e23e|variation.5bb63f27e7179a6602f3e1eb| timing.5bb64059e7179a6602f3e24d| warranty.5bb64017e7179a6602f3e23d| content.5b2b6019e7179a589286065d",
+````
+
+The first separator, I am stating the "key" separator. mad-form will loop through the data source and find the keys that contain the following separtors. In this instance, field_variation is one of those keys. 
+
+The second element of the separator array focus on separating the actual values. In this isntance, I use a pipe to separatore the values. 
+
+````
+variation.5bb63f0be7179a6602f3e1e4| variation.5bb63f27e7179a6602f3e1eb
+````
+
+The pipe indicate that the pipe " | " separate the values. This will return: 
+````
+field: ["variation.5bb63f0be7179a6602f3e1e4",  "variation.5bb63f27e7179a6602f3e1eb"]
+
+````
+The third separator is for the "D" or demarel on mad-form. This create a nother set of arrays for the actual content. Since we are using a period " . " for this instance, this will return:
+
+````
+field: {
+	variation: ["5bb63f0be7179a6602f3e1e4","5bb63f27e7179a6602f3e1eb"]
+}
+````
+
+
 
 
 
