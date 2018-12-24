@@ -1,6 +1,6 @@
 {
 	"name": "mad-form",
-	"version": "2.1.0",
+	"version": "2.2.0",
 	"description": "A killer app that allows users to add multiple items in one click. ",
 	"main": "index.js",
 	"scripts": {
