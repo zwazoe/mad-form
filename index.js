@@ -1,4 +1,4 @@
-class Melel{
+class Melel {
 	constructor() {
 		this.key = arguments[1];
 		this.form = arguments[0][0];
@@ -9,23 +9,24 @@ class Melel{
 		this.elements = [];
 		this.length = 0;
 	}
+	sanitized(item) {
+		return item.toLowerCase().trim();
+	}
 
-	getFields(){
+	getFields() {
 		// empty array to store the fields.
 		let fields = [];
 		// attributes are: attribute_measurement and field_name
 		// key are: attribute, field
-		this.formArgs.forEach(attribute => {
+		this.formArgs.forEach((attribute) => {
 			// concatnate key with the key spliter '_'. = attribute_ and field_
 			// then remove them from the attribute string. = measurement, name
 			// lastly push it into the fields array = fields = [measurement, name]
-			fields.push(attribute.replace(this.key.concat(this.kSplit), ''))	
-
+			fields.push(attribute.replace(this.key.concat(this.kSplit), ''));
 		});
 		// return the field array.
 		return fields;
 	}
-	
 
 	getAttributes() {
 		var definedModelArguments = this.getFields();
@@ -41,8 +42,15 @@ class Melel{
 				// create an empty object inside the element array
 				this.elements[i] = {};
 				// turn formArg value into an object key.
-				// assign the key to the value from the form
-				this.elements[i][modelArgs] = this.form[formArg].split(this.vSplit);
+				let prep = this.form[formArg].split(this.vSplit);
+				//sanitized the value
+				let ready = [];
+				prep.forEach((element) => {
+					ready.push(this.sanitized(element.toString()));
+				});
+				// assign the value
+				this.elements[i][modelArgs] = ready;
+
 				// get the length of the created array.
 				let arrayLength = this.elements[i][modelArgs].length;
 				// compare this.length with arrayLength
@@ -84,10 +92,8 @@ class Melel{
 		let maxLength = attributes[0][definedModelArguments[0]].length;
 		var arr = [];
 
-
-
 		for (let i = 0; i < maxLength; i++) {
-			var item = {}
+			var item = {};
 			definedModelArguments.forEach((element, pos) => {
 				item[element] = attributes[pos][definedModelArguments[pos]][i];
 			});
@@ -99,20 +105,17 @@ class Melel{
 }
 
 class Demarel {
-	constructor() {
-		this.form = arguments[0][0];
+	constructor(settings = [ source, splitter ], formArgs = []) {
+		this.source = arguments[0][0];
 		this.splitter = arguments[0][1];
 		this.formArgs = arguments[1];
 		this.fields = {};
 	}
 
-	sanitized(item) {
-		item.toLowerCase().trim();
-	}
 	getFields() {
 		for (let i = 0; this.formArgs.length > i; i++) {
-			if (this.form[this.formArgs[i]] !== undefined) {
-				this.fields[this.formArgs[i].toLowerCase().trim()] = this.form[this.formArgs[i]].split(this.splitter);
+			if (this.source[this.formArgs[i]] !== undefined) {
+				this.fields[this.formArgs[i].toLowerCase().trim()] = this.source[this.formArgs[i]].split(this.splitter);
 			}
 		}
 		return this.fields;
@@ -151,15 +154,18 @@ class Attachel {
 		this.splitter = arguments[0][1];
 		this.formArgs = arguments[1];
 	}
+	sanitized(item) {
+		item.toLowerCase().trim();
+	}
 	run() {
 		let fields = {};
 		let form = this.form;
 		let formArgs = this.formArgs;
 		for (let i = 0; formArgs.length > i; i++) {
 			if (typeof form[formArgs[i]] !== 'undefined') {
-				if(form[formArgs[i]] instanceof Date){
-						fields[formArgs[i]] = form[formArgs[i]];
-				} else{
+				if (form[formArgs[i]] instanceof Date) {
+					fields[formArgs[i]] = form[formArgs[i]];
+				} else {
 					if (form[formArgs[i]].toString().includes(this.splitter)) {
 						fields[formArgs[i]] = form[formArgs[i]].split(this.splitter);
 					} else {
@@ -173,140 +179,163 @@ class Attachel {
 }
 
 class MAD {
-	constructor(source, splitter = ["_", "|", "."], melel = [], demarel = []){
+	constructor(
+		source,
+		name,
+		splitter = [ '_', '|', '.' ],
+		melel = [],
+		demarel = [],
+		options = { attache: [], overide: {}, demarelKeyed: true }
+	) {
 		this.source = arguments[0];
 		this.kSplit = arguments[2][0]; // split the keys attribute_value
 		this.vSplit = arguments[2][1]; // split the values 32 | 68 | 48
 		this.dSplit = arguments[2][2];
-		this.mele = arguments[3] // items to match similar to rows
-		this.demare = arguments[4]; 
-		this.title = arguments[1]
+		this.mele = arguments[3]; // items to match similar to rows
+		this.demare = arguments[4];
+		this.title = arguments[1];
 		this.source = source;
 		this.data = [];
-
+		this.defaultAttache = options.attache;
+		this.demarelKeyed = options.demarelKeyed;
+		this.overide = options.overide;
 	}
-	getKeys(){
-		let keys = arguments[0];
-		let element = arguments[1]
-		let arr = []
-		keys.forEach(key => {	
-				if(key.includes(element)){
-					
-					arr.push(key)
-				}				
+	sanitized(item) {
+		return item.toLowerCase().trim();
+	}
+	getKeys() {
+		let source = arguments[0];
+		let element = arguments[1];
+		let keys = [];
+
+		source.forEach((key) => {
+			if (key.includes(element)) {
+				keys.push(key);
+			}
 		});
 
-		arr.forEach(element => {
-			keys.splice(keys.indexOf(element), 1 );
-	
+		keys.forEach((element) => {
+			source.splice(source.indexOf(element), 1);
 		});
-		return arr
+		return keys;
 	}
-	getFields(attributes, key){
+	getFields(attributes, key) {
 		// empty array to store the fields.
 		let fields = [];
 		// attributes are: attribute_measurement and field_name
 		// key are: attribute, field
-		attributes.forEach(attribute => {
+		attributes.forEach((attribute) => {
 			// concatnate key with the key spliter '_'. = attribute_ and field_
 			// then remove them from the attribute string. = measurement, name
 			// lastly push it into the fields array = fields = [measurement, name]
-			fields.push(attribute.replace(key.concat(this.kSplit), ''))	
+			fields.push(attribute.replace(key.concat(this.kSplit), ''));
 		});
 		// return the field array.
 		return fields;
 	}
-	getMelel(attribute, key){
+	getMelel(attribute, key) {
 		// attributes are: attribute_measurement and field_name
 		// key are attribute and field
-		let fields = this.getFields(attribute, key)
-		let mele = []
+		let fields = this.getFields(attribute, key);
+		let mele = [];
 		//map the elements
-		this.mele.forEach(element => {	
-			const melel = new Melel([this.source, this.vSplit], element, attribute, fields)
+		this.mele.forEach((element) => {
+			const melel = new Melel([ this.source, this.vSplit ], element, attribute, fields);
 			mele.push(melel.run());
-
 		});
 		return mele;
 	}
-	run(){
-		const attache = Object.keys(this.source); // first get all the keys.
-		const mele = {}; 
+	run() {
+		let rawKeys = Object.keys(this.source); // first get all the keys.
+		// sanitized the keys
+
+		let attache = [];
+		rawKeys.forEach((key) => {
+			attache.push(this.sanitized(key));
+		});
+
+		const mele = {};
 		const demare = {};
-	
+
 		// get the mele key from the arguments
-		if(this.mele){
+		if (this.mele) {
 			// for each key, makes it equals to the key from the req.bod
 			// remember, we use the key name to match it. like so: attibute is in attibute_measurement.
-			this.mele.forEach(key => {
+			this.mele.forEach((key) => {
 				// attache is the list of keys  and key is the start of the key that I am searching for concatnate with the key splitter (ksplit)
-				// it will find attribute_ in the list of keys. Then, it will return it's findings. 
-				mele[key] = this.getKeys(attache, key + this.kSplit)
+				// it will find attribute_ in the list of keys. Then, it will return it's findings.
+				mele[key] = this.getKeys(attache, key + this.kSplit);
 			});
 		}
 
 		// get the mele key from the arguments
-		if(this.demare){
+		if (this.demare) {
 			// for each key, makes it equals to the key from the req.bod
 			// remember, we use the key name to match it. like so: attibute is in attibute_measurement.
-			this.demare.forEach(key => {
+			this.demare.forEach((key) => {
 				// attache is the list of keys  and key is the start of the key that I am searching for concatnate with the key splitter (ksplit)
-				// it will find attribute_ in the list of keys. Then, it will return it's findings. 
-				demare[key] = this.getKeys(attache, key + this.kSplit)
+				// it will find attribute_ in the list of keys. Then, it will return it's findings.
+				demare[key] = this.getKeys(attache, key + this.kSplit);
 			});
 		}
 
 		let theFields = {};
 
-		Object.keys(mele).forEach(key => {
-			let melel = new Melel(
-				[ this.source, this.kSplit, this.vSplit ],
-				key,
-				mele[key]
-			);
+		Object.keys(mele).forEach((key) => {
+			let melel = new Melel([ this.source, this.kSplit, this.vSplit ], key, mele[key]);
 
-			theFields[key] = melel.run()
-
+			theFields[key] = melel.run();
 		});
-
-	
 
 		// start demarel
 		// Demare: Multi Fields
-		Object.keys(demare).forEach(key => {
-			let demarel = new Demarel([ this.source, this.vSplit ], demare[key]);
-			theFields[key] = demarel.run()
-		})
-
+		Object.keys(demare).forEach((key) => {
+			let demarel = new Demarel([ this.source, this.vSplit ], demare[key], this.demarelHolder);
+			if (this.demarelKeyed) {
+				Object.assign(theFields, demarel.run());
+			} else {
+				theFields[key] = demarel.run();
+			}
+		});
 
 		// start attachel
-		let attachel = new Attachel([ this.source, this.vSplit ], attache);
+		// only attache those what is prescribed by the user
 
-
-			Object.assign(theFields, attachel.run())
-
-	let titles = this.source[this.title].split(this.vSplit);
-
-	delete theFields[this.title]
-
-	var myArray = [];
-	
-	
-	titles.forEach(title => {
-		let temp = {}
-		temp[this.title] = title;
-		for (const key in theFields) {
-				temp[key] = theFields[key]
+		if (this.defaultAttache.length > 0) {
+			attache = this.defaultAttache;
 		}
-		myArray.push(temp)
-	});
 
+		let attachel = new Attachel([ this.source, this.vSplit ], attache);
+		let readyAttachel = attachel.run();
 
+		if (this.overide) {
+			let overideKeys = Object.keys(this.overide);
+			if (overideKeys.length > 0) {
+				overideKeys.forEach((key) => {
+					delete readyAttachel[this.overide[key]];
+				});
+				Object.assign(readyAttachel, this.overide);
+			}
+		}
 
-	return myArray;
+		Object.assign(theFields, readyAttachel);
 
+		let titles = this.source[this.title].split(this.vSplit);
 
+		delete theFields[this.title];
+
+		var myArray = [];
+
+		titles.forEach((title) => {
+			let temp = {};
+			temp[this.title] = this.sanitized(title);
+			for (const key in theFields) {
+				temp[key] = theFields[key];
+			}
+			myArray.push(temp);
+		});
+
+		return myArray;
 	}
-	
 }
 module.exports = { M: Melel, A: Attachel, D: Demarel, MAD };

@@ -1,6 +1,6 @@
 {
 	"name": "mad-form",
-	"version": "2.0.0",
+	"version": "2.1.0",
 	"description": "A killer app that allows users to add multiple items in one click. ",
 	"main": "index.js",
 	"scripts": {
@@ -10,8 +10,33 @@
 		"type": "git",
 		"url": "git+https://github.com/zwazoe/mad-form.git"
 	},
-	"keywords": [ "form", "forms", "mad form", "mad-form", "excel", "user experience", "Ux", "killer app", "post", "api", "database", "mongoDB", "sqlserver", "postgresql", "nosql", "node", "react", "react.js", "express", "mongoose", "bodyParser", "router", "angular", "vue" ],
-	
+	"keywords": [
+		"form",
+		"forms",
+		"mad form",
+		"mad-form",
+		"excel",
+		"user experience",
+		"Ux",
+		"killer app",
+		"post",
+		"api",
+		"database",
+		"mongoDB",
+		"sqlserver",
+		"postgresql",
+		"nosql",
+		"node",
+		"react",
+		"react.js",
+		"express",
+		"mongoose",
+		"bodyParser",
+		"router",
+		"angular",
+		"vue"
+	],
+
 	"author": "Lesly ZwaZoe Revenge",
 	"license": "MIT",
 	"bugs": {
