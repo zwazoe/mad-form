@@ -1,0 +1,61 @@
+{
+	"_id": {
+		"$oid": "5c22b42bfed96653c0559f68"
+	},
+	"variation": [],
+	"warranty": [],
+	"timing": [],
+	"pitch": [],
+	"group": [],
+	"published": true,
+	"public": true,
+	"validated": true,
+	"name": "large",
+	"attributes": [
+		{
+			"_id": {
+				"$oid": "5c22b42bfed96653c0559f6d"
+			},
+			"values": "690",
+			"measurements": "lb"
+		},
+		{
+			"_id": {
+				"$oid": "5c22b42bfed96653c0559f6c"
+			},
+			"values": "34",
+			"measurements": "inch"
+		},
+		{
+			"_id": {
+				"$oid": "5c22b42bfed96653c0559f6b"
+			},
+			"values": "",
+			"measurements": ""
+		},
+		{
+			"_id": {
+				"$oid": "5c22b42bfed96653c0559f6a"
+			},
+			"values": "",
+			"measurements": ""
+		},
+		{
+			"_id": {
+				"$oid": "5c22b42bfed96653c0559f69"
+			},
+			"values": "",
+			"measurements": ""
+		}
+	],
+	"owner": {
+		"$oid": "5c1faee3e7179a7487972dfa"
+	},
+	"creator": {
+		"$oid": "5c0aa92176b78c3d0c90f9a9"
+	},
+	"created_at": {
+		"$date": "2018-12-25T22:50:19.392Z"
+	},
+	"__v": 0
+}

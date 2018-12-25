@@ -97,7 +97,11 @@ class Melel {
 			for (let i = 0; i < maxLength; i++) {
 				var item = {};
 				definedModelArguments.forEach((element, pos) => {
-					item[element] = attributes[pos][definedModelArguments[pos]][i];
+					let value = attributes[pos][definedModelArguments[pos]][i];
+
+					if (value !== '' && value !== null && value !== undefined && value.length > 0) {
+						item[element] = value;
+					}
 				});
 				arr.push(item);
 			}
