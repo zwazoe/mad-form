@@ -7,6 +7,10 @@ let req = {
 		attributes_measurements: 'LB|Inch|',
 		attributes_fields: 'Weight | Height | Width ',
 		attributes_values: '32 | 68 | 48 | 56',
+		field_name: 'variation| warranty| timing|content|group',
+		field_variation:
+			'variation.5bb63f0be7179a6602f3e1e4| variation.5bb63f27e7179a6602f3e1eb| warranty.5bb6400ae7179a6602f3e23c|timing.5bb64059e7179a6602f3e24d| timing.5bb64059e7179a6602f3e24d|  warranty.5bb64024e7179a6602f3e23e|variation.5bb63f27e7179a6602f3e1eb| timing.5bb64059e7179a6602f3e24d| warranty.5bb64017e7179a6602f3e23d| content.5b2b6019e7179a589286065d',
+
 		public: 'true',
 		published: 'true',
 		owner: '5b1e87c4f9e3a6ddec3a6f1b',
@@ -27,7 +31,7 @@ const mad = new MAD(
 			owner: 'place.id',
 			creator: 'profile.id'
 		},
-		demarelKeyed: true
+		demarelKeyed: false
 	}
 );
 

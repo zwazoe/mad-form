@@ -301,9 +301,9 @@ class MAD {
 		Object.keys(demare).forEach((key) => {
 			let demarel = new Demarel([ this.source, this.vSplit ], demare[key], this.demarelHolder);
 			if (this.demarelKeyed) {
-				Object.assign(theFields, demarel.run());
-			} else {
 				theFields[key] = demarel.run();
+			} else {
+				Object.assign(theFields, demarel.run());
 			}
 		});
 
