@@ -2,8 +2,8 @@ const { MAD } = require('../index.js');
 
 let req = {
 	body: {
-		name: 'Medium | Large',
-		sample_measurement: 'Kilo|Meter',
+		name: 'Medium | Large|',
+		sample_measurement: 'Kilo|Meter|',
 		sample_field: 'Volume | Mass | Width ',
 		sample_value: '98  | 32 | 56',
 		attribute_measurement: 'LB|Inch',

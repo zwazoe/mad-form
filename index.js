@@ -89,15 +89,18 @@ class Melel {
 	run() {
 		var definedModelArguments = this.getFields();
 		let attributes = this.fillAttributes();
-		let maxLength = attributes[0][definedModelArguments[0]].length;
 		var arr = [];
 
-		for (let i = 0; i < maxLength; i++) {
-			var item = {};
-			definedModelArguments.forEach((element, pos) => {
-				item[element] = attributes[pos][definedModelArguments[pos]][i];
-			});
-			arr.push(item);
+		if (attributes.length > 0) {
+			let maxLength = attributes[0][definedModelArguments[0]].length;
+
+			for (let i = 0; i < maxLength; i++) {
+				var item = {};
+				definedModelArguments.forEach((element, pos) => {
+					item[element] = attributes[pos][definedModelArguments[pos]][i];
+				});
+				arr.push(item);
+			}
 		}
 
 		return arr;
@@ -130,18 +133,20 @@ class Demarel {
 		};
 
 		var model = {};
-		// create an empty array for each modelSet and assign it to model array.
-		for (let i = 0; modelSet(0).length > i; i++) {
-			model[modelSet(0)[i].toLowerCase().trim()] = [];
-		}
-
-		// get second set
-		for (let i = 0; modelSet(1).length > i; i++) {
-			let field = modelSet(1)[i].toLowerCase().trim();
-			if (field !== undefined) {
-				var setArray = modelSet(1)[i].toLowerCase().trim().split('.');
+		if (Object.keys(fields).length > 0) {
+			// create an empty array for each modelSet and assign it to model array.
+			for (let i = 0; modelSet(0).length > i; i++) {
+				model[modelSet(0)[i].toLowerCase().trim()] = [];
 			}
-			model[setArray[0]].push(setArray[1]);
+
+			// get second set
+			for (let i = 0; modelSet(1).length > i; i++) {
+				let field = modelSet(1)[i].toLowerCase().trim();
+				if (field !== undefined) {
+					var setArray = modelSet(1)[i].toLowerCase().trim().split('.');
+				}
+				model[setArray[0]].push(setArray[1]);
+			}
 		}
 
 		return model;
@@ -327,12 +332,14 @@ class MAD {
 		var myArray = [];
 
 		titles.forEach((title) => {
-			let temp = {};
-			temp[this.title] = this.sanitized(title);
-			for (const key in theFields) {
-				temp[key] = theFields[key];
+			if (this.sanitized(title) !== '') {
+				let temp = {};
+				temp[this.title] = this.sanitized(title);
+				for (const key in theFields) {
+					temp[key] = theFields[key];
+				}
+				myArray.push(temp);
 			}
-			myArray.push(temp);
 		});
 
 		return myArray;
