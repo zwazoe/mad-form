@@ -1,4 +1,84 @@
 // todo: add different options that let users add field for each names such as descriptions and alias
+
+class Papa {
+	constructor() {}
+	sanitized(item) {
+		return item.toLowerCase().trim();
+	}
+
+	removeTrailingSplitter(element, splitter) {
+		// sanitized
+		let prep = this.sanitized(element);
+		// get last character
+		let trail = prep.charAt(prep.length - splitter.length);
+		// if splitter is equal to the last character, remove the last character
+		if (splitter == trail) {
+			prep = prep.slice(0, prep.length - splitter.length);
+		}
+		return prep;
+	}
+	getFieldNeeded(formArgs, formKey, kSplit, toRemove = true) {
+		// formargs is all of the arguments in the sourcr;
+		// form key, is the key item that you will be looking to see if the form has like group_name, group_description.
+		// we will search to see if form has group_ in there.
+		// empty array to store the fields.
+		let fields = [];
+		// attributes are: attribute_measurement and field_name
+		// key are: attribute, field
+
+		formArgs.forEach((attribute) => {
+			// concatnate key with the key spliter '_'. = attribute_ and field_
+			let keyAndSplit = formKey.concat(kSplit);
+			// if it is available decie to see if we should only return the key or removed the formkey and split.
+
+			if (attribute.includes(keyAndSplit, 0)) {
+				if (toRemove) {
+					let newKey = attribute.replace(keyAndSplit, '');
+					fields.push(newKey);
+				} else {
+					fields.push(attribute);
+				}
+			}
+		});
+		// return the field array.
+		return fields;
+	}
+	getValuesItem(source, key, vSplit) {
+		let prep = source[key];
+		prep = this.removeTrailingSplitter(prep, vSplit);
+
+		let itemArray = prep.split(vSplit);
+		return itemArray;
+	}
+	getValues(source, keys, vSplit) {
+		let values = {};
+		keys.forEach((key) => {
+			values[key] = this.getValuesItem(source, key, vSplit);
+		});
+		return values;
+	}
+}
+
+class MadGroup extends Papa {
+	constructor(source, splitter = [], key) {
+		super();
+		// the data source
+		this.source = source;
+		// how to split the value (Medium | Large |) the pipe will be the splitter
+		this.vSplit = splitter[1];
+		this.kSplit = splitter[0];
+		this.key = key;
+	}
+
+	run() {
+		let formArgs = Object.keys(this.source);
+
+		// extract group from the source.
+		let fields = this.getFieldNeeded(formArgs, this.key, this.kSplit, false);
+		let values = this.getValues(this.source, fields, this.vSplit);
+		return values;
+	}
+}
 class Melel {
 	constructor() {
 		this.key = arguments[1];
@@ -237,9 +317,10 @@ class MAD {
 		splitter = [ '_', '|', '.' ],
 		melel = [],
 		demarel = [],
-		options = { attache: [], overide: {}, demarelKeyed: true }
+		options = { attache: [], overide: {}, demarelKeyed: true, group: '', finishGroup: 'true' }
 	) {
 		this.source = arguments[0];
+		this.splitter = splitter;
 		this.kSplit = arguments[2][0]; // split the keys attribute_value
 		this.vSplit = arguments[2][1]; // split the values 32 | 68 | 48
 		this.oSplit = arguments[2][2];
@@ -251,6 +332,8 @@ class MAD {
 		this.defaultAttache = options.attache;
 		this.demarelKeyed = options.demarelKeyed;
 		this.overide = options.overide;
+		this.group = options.group;
+		this.groupCompletion = options.groupCompletion;
 	}
 	sanitized(item) {
 		return item.toLowerCase().trim();
@@ -308,6 +391,7 @@ class MAD {
 		});
 		return mele;
 	}
+	addGroup() {}
 	run() {
 		let rawKeys = Object.keys(this.source); // first get all the keys.
 		// sanitized the keys
@@ -404,10 +488,38 @@ class MAD {
 					temp[key] = theFields[key];
 				}
 				myArray.push(temp);
+
+				const madGroup = new MadGroup(
+					this.source, // data source
+					this.splitter, // spliters: key, value, and options (opitions uses on demarel)
+					this.group
+				);
+
+				let group = madGroup.run();
+				let groupKeys = Object.keys(group);
+
+				// loop through the array and gget each and every items.
+				//
+				let i = 0;
+				myArray.forEach((item) => {
+					groupKeys.forEach((key) => {
+						let currentValue = group[key][i];
+						let lastValue = group[key][group[key].length - 1];
+						if (i > group[key].length - 1) {
+							if (this.groupCompletion) {
+								item[key] = this.sanitized(lastValue);
+							}
+						} else {
+							item[key] = this.sanitized(currentValue);
+						}
+					});
+
+					i++;
+				});
 			}
 		});
 
 		return myArray;
 	}
 }
-module.exports = { M: Melel, A: Attachel, D: Demarel, MAD };
+module.exports = { MG: MadGroup, M: Melel, A: Attachel, D: Demarel, MAD };
