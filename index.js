@@ -1,3 +1,4 @@
+// todo: add different options that let users add field for each names such as descriptions and alias
 class Melel {
 	constructor() {
 		this.key = arguments[1];
@@ -12,12 +13,24 @@ class Melel {
 	sanitized(item) {
 		return item.toLowerCase().trim();
 	}
+	removeTrailingSplitter(element, splitter) {
+		// sanitized
+		let prep = this.sanitized(element);
+		// get last character
+		let trail = prep.charAt(prep.length - splitter.length);
+		// if splitter is equal to the last character, remove the last character
+		if (splitter == trail) {
+			prep = prep.slice(0, prep.length - splitter.length);
+		}
+		return prep;
+	}
 
 	getFields() {
 		// empty array to store the fields.
 		let fields = [];
 		// attributes are: attribute_measurement and field_name
 		// key are: attribute, field
+
 		this.formArgs.forEach((attribute) => {
 			// concatnate key with the key spliter '_'. = attribute_ and field_
 			// then remove them from the attribute string. = measurement, name
@@ -42,7 +55,13 @@ class Melel {
 				// create an empty object inside the element array
 				this.elements[i] = {};
 				// turn formArg value into an object key.
-				let prep = this.form[formArg].split(this.vSplit);
+				let prep = this.form[formArg];
+				// sanitized
+				prep = this.removeTrailingSplitter(prep, this.vSplit);
+
+				console.log(prep);
+
+				prep = prep.split(this.vSplit);
 				//sanitized the value
 				let ready = [];
 				prep.forEach((element) => {
@@ -112,21 +131,42 @@ class Melel {
 }
 
 class Demarel {
-	constructor(settings = [ source, splitter ], formArgs = []) {
+	constructor(settings = [ source, vSplit, kSplit, oSplit ], formArgs = []) {
 		this.source = arguments[0][0];
-		this.splitter = arguments[0][1];
+		this.vSplit = arguments[0][1];
+		this.kSplit = arguments[0][2];
+		this.oSplit = arguments[0][3];
+
 		this.formArgs = arguments[1];
 		this.fields = {};
+	}
+	sanitized(item) {
+		return item.toLowerCase().trim();
+	}
+	removeTrailingSplitter(element, splitter) {
+		// sanitized
+		let prep = this.sanitized(element);
+		// get last character
+		let trail = prep.charAt(prep.length - splitter.length);
+		// if splitter is equal to the last character, remove the last character
+		if (splitter == trail) {
+			prep = prep.slice(0, prep.length - splitter.length);
+		}
+		return prep;
 	}
 
 	getFields() {
 		for (let i = 0; this.formArgs.length > i; i++) {
-			if (this.source[this.formArgs[i]] !== undefined) {
-				this.fields[this.formArgs[i].toLowerCase().trim()] = this.source[this.formArgs[i]].split(this.splitter);
+			let prep = this.source[this.formArgs[i]];
+			prep = this.removeTrailingSplitter(prep, this.vSplit);
+			console.log(prep);
+			if (prep !== undefined) {
+				this.fields[this.formArgs[i].toLowerCase().trim()] = prep.split(this.vSplit);
 			}
 		}
 		return this.fields;
 	}
+
 	run() {
 		// get the name of the fields: i.e. description, timing, warranty, variation.
 		let fields = this.getFields();
@@ -147,7 +187,10 @@ class Demarel {
 			for (let i = 0; modelSet(1).length > i; i++) {
 				let field = modelSet(1)[i].toLowerCase().trim();
 				if (field !== undefined) {
-					var setArray = modelSet(1)[i].toLowerCase().trim().split('.');
+					let prep = modelSet(1)[i];
+					prep = this.sanitized(prep);
+					prep = this.removeTrailingSplitter(prep, this.oSplit);
+					var setArray = prep.split(this.oSplit);
 				}
 				model[setArray[0]].push(setArray[1]);
 			}
@@ -199,7 +242,7 @@ class MAD {
 		this.source = arguments[0];
 		this.kSplit = arguments[2][0]; // split the keys attribute_value
 		this.vSplit = arguments[2][1]; // split the values 32 | 68 | 48
-		this.dSplit = arguments[2][2];
+		this.oSplit = arguments[2][2];
 		this.mele = arguments[3]; // items to match similar to rows
 		this.demare = arguments[4];
 		this.title = arguments[1];
@@ -211,6 +254,17 @@ class MAD {
 	}
 	sanitized(item) {
 		return item.toLowerCase().trim();
+	}
+	removeTrailingSplitter(element, splitter) {
+		// sanitized
+		let prep = this.sanitized(element);
+		// get last character
+		let trail = prep.charAt(prep.length - splitter.length);
+		// if splitter is equal to the last character, remove the last character
+		if (splitter == trail) {
+			prep = prep.slice(0, prep.length - splitter.length);
+		}
+		return prep;
 	}
 	getKeys() {
 		let source = arguments[0];
@@ -299,7 +353,11 @@ class MAD {
 		// start demarel
 		// Demare: Multi Fields
 		Object.keys(demare).forEach((key) => {
-			let demarel = new Demarel([ this.source, this.vSplit ], demare[key], this.demarelHolder);
+			let demarel = new Demarel(
+				[ this.source, this.vSplit, this.kSplit, this.oSplit ],
+				demare[key],
+				this.demarelHolder
+			);
 			if (this.demarelKeyed) {
 				theFields[key] = demarel.run();
 			} else {
@@ -329,7 +387,10 @@ class MAD {
 
 		Object.assign(theFields, readyAttachel);
 
-		let titles = this.source[this.title].split(this.vSplit);
+		let prep = this.source[this.title];
+		prep = this.removeTrailingSplitter(prep, this.vSplit);
+
+		let titles = prep.split(this.vSplit);
 
 		delete theFields[this.title];
 
