@@ -1,10 +1,10 @@
 {
 	"name": "mad-form",
-	"version": "2.3.0",
-	"description": "A killer app that allows users to add multiple items in one click. ",
+	"version": "2.3.1",
+	"description": "The only form library you will need. It uses MAD technique that allow you to add multiple items in one click.",
 	"main": "index.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test-all": "node test-directory/test"
 	},
 	"repository": {
 		"type": "git",

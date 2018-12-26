@@ -1,5 +1,3 @@
-// todo: add different options that let users add field for each names such as descriptions and alias
-
 class Papa {
 	constructor() {}
 	sanitized(item) {
@@ -89,6 +87,7 @@ class Melel {
 		this.attribute = [];
 		this.elements = [];
 		this.length = 0;
+		this.includeKeys = arguments[3];
 	}
 	sanitized(item) {
 		return item.toLowerCase().trim();
@@ -115,7 +114,14 @@ class Melel {
 			// concatnate key with the key spliter '_'. = attribute_ and field_
 			// then remove them from the attribute string. = measurement, name
 			// lastly push it into the fields array = fields = [measurement, name]
-			fields.push(attribute.replace(this.key.concat(this.kSplit), ''));
+			let keyAndSplit = this.key.concat(this.kSplit);
+			let newKey;
+			if (this.includeKeys == true) {
+				newKey = attribute;
+			} else {
+				newKey = attribute.replace(keyAndSplit, '');
+			}
+			fields.push(newKey);
 		});
 		// return the field array.
 		return fields;
@@ -138,8 +144,6 @@ class Melel {
 				let prep = this.form[formArg];
 				// sanitized
 				prep = this.removeTrailingSplitter(prep, this.vSplit);
-
-				console.log(prep);
 
 				prep = prep.split(this.vSplit);
 				//sanitized the value
@@ -239,7 +243,6 @@ class Demarel {
 		for (let i = 0; this.formArgs.length > i; i++) {
 			let prep = this.source[this.formArgs[i]];
 			prep = this.removeTrailingSplitter(prep, this.vSplit);
-			console.log(prep);
 			if (prep !== undefined) {
 				this.fields[this.formArgs[i].toLowerCase().trim()] = prep.split(this.vSplit);
 			}
@@ -317,7 +320,18 @@ class MAD {
 		splitter = [ '_', '|', '.' ],
 		melel = [],
 		demarel = [],
-		options = { attache: [], overide: {}, demarelKeyed: true, group: '', finishGroup: 'true' }
+		options = {
+			attache: [],
+			overide: {},
+			includeKeys: {
+				demare: true,
+				mare: true,
+				group: true
+			},
+			group: '',
+			finishGroup: 'true',
+			includeGroupKey: 'true'
+		}
 	) {
 		this.source = arguments[0];
 		this.splitter = splitter;
@@ -330,10 +344,12 @@ class MAD {
 		this.source = source;
 		this.data = [];
 		this.defaultAttache = options.attache;
-		this.demarelKeyed = options.demarelKeyed;
 		this.overide = options.overide;
 		this.group = options.group;
 		this.groupCompletion = options.groupCompletion;
+		this.includeDemareKey = options.includeKeys.demare;
+		this.includeGroupKey = options.includeKeys.group;
+		this.includeMareKey = options.includeKeys.mare;
 	}
 	sanitized(item) {
 		return item.toLowerCase().trim();
@@ -429,7 +445,7 @@ class MAD {
 		let theFields = {};
 
 		Object.keys(mele).forEach((key) => {
-			let melel = new Melel([ this.source, this.kSplit, this.vSplit ], key, mele[key]);
+			let melel = new Melel([ this.source, this.kSplit, this.vSplit ], key, mele[key], this.includeMareKey);
 
 			theFields[key] = melel.run();
 		});
@@ -442,7 +458,7 @@ class MAD {
 				demare[key],
 				this.demarelHolder
 			);
-			if (this.demarelKeyed) {
+			if (this.includeDemareKey) {
 				theFields[key] = demarel.run();
 			} else {
 				Object.assign(theFields, demarel.run());
@@ -503,14 +519,28 @@ class MAD {
 				let i = 0;
 				myArray.forEach((item) => {
 					groupKeys.forEach((key) => {
-						let currentValue = group[key][i];
-						let lastValue = group[key][group[key].length - 1];
+						let value = group[key];
+						let currentValue = value[i];
+						let lastValue = value[value.length - 1];
+						let newKey = key.replace(this.group.concat(this.kSplit), '');
 						if (i > group[key].length - 1) {
 							if (this.groupCompletion) {
-								item[key] = this.sanitized(lastValue);
+								if (this.includeGroupKey) {
+									item[key] = this.sanitized(lastValue);
+								} else {
+									delete item[key];
+									item[newKey] = this.sanitized(lastValue);
+								}
+							} else {
+								delete item[key];
 							}
 						} else {
-							item[key] = this.sanitized(currentValue);
+							if (this.includeGroupKey) {
+								item[key] = this.sanitized(currentValue);
+							} else {
+								delete item[key];
+								item[newKey] = this.sanitized(currentValue);
+							}
 						}
 					});
 

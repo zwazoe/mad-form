@@ -2,10 +2,10 @@
 	{
 		"name": "medium",
 		"attributes": [
-			{ "measurements": "lb", "fields": "weight", "values": "32" },
-			{ "measurements": "inch", "fields": "height", "values": "68" },
-			{ "measurements": "inch", "fields": "width", "values": "48" },
-			{ "measurements": "inch", "fields": "width", "values": "56" }
+			{ "attributes_measurements": "lb", "attributes_fields": "weight", "attributes_values": "32" },
+			{ "attributes_measurements": "inch", "attributes_fields": "height", "attributes_values": "68" },
+			{ "attributes_measurements": "inch", "attributes_fields": "width", "attributes_values": "48" },
+			{ "attributes_measurements": "inch", "attributes_fields": "width", "attributes_values": "56" }
 		],
 		"variation": [ "5bb63f0be7179a6602f3e1e4", "5bb63f27e7179a6602f3e1eb", "5bb63f27e7179a6602f3e1eb" ],
 		"warranty": [ "5bb6400ae7179a6602f3e23c", "5bb64024e7179a6602f3e23e", "5bb64017e7179a6602f3e23d" ],
@@ -13,20 +13,20 @@
 		"content": [ "5b2b6019e7179a589286065d" ],
 		"group": [],
 		"group_alias": "shirt",
-		"group_description": "this item works best for the rest",
+		"group_description": "this item works best for the res",
 		"public": "true",
 		"published": "true",
 		"owner": "place.id",
 		"creator": "profile.id",
-		"updated_at": 1545832000838
+		"updated_at": 1545848351962
 	},
 	{
 		"name": "large",
 		"attributes": [
-			{ "measurements": "lb", "fields": "weight", "values": "32" },
-			{ "measurements": "inch", "fields": "height", "values": "68" },
-			{ "measurements": "inch", "fields": "width", "values": "48" },
-			{ "measurements": "inch", "fields": "width", "values": "56" }
+			{ "attributes_measurements": "lb", "attributes_fields": "weight", "attributes_values": "32" },
+			{ "attributes_measurements": "inch", "attributes_fields": "height", "attributes_values": "68" },
+			{ "attributes_measurements": "inch", "attributes_fields": "width", "attributes_values": "48" },
+			{ "attributes_measurements": "inch", "attributes_fields": "width", "attributes_values": "56" }
 		],
 		"variation": [ "5bb63f0be7179a6602f3e1e4", "5bb63f27e7179a6602f3e1eb", "5bb63f27e7179a6602f3e1eb" ],
 		"warranty": [ "5bb6400ae7179a6602f3e23c", "5bb64024e7179a6602f3e23e", "5bb64017e7179a6602f3e23d" ],
@@ -34,11 +34,11 @@
 		"content": [ "5b2b6019e7179a589286065d" ],
 		"group": [],
 		"group_alias": "shoes",
-		"group_description": "something",
+		"group_description": "this item works best for the res",
 		"public": "true",
 		"published": "true",
 		"owner": "place.id",
 		"creator": "profile.id",
-		"updated_at": 1545832000838
+		"updated_at": 1545848351962
 	}
 ]

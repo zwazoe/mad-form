@@ -11,7 +11,7 @@ let req = {
 		field_variation:
 			'variation.5bb63f0be7179a6602f3e1e4| variation.5bb63f27e7179a6602f3e1eb| warranty.5bb6400ae7179a6602f3e23c|timing.5bb64059e7179a6602f3e24d| timing.5bb64059e7179a6602f3e24d|  warranty.5bb64024e7179a6602f3e23e|variation.5bb63f27e7179a6602f3e1eb| timing.5bb64059e7179a6602f3e24d| warranty.5bb64017e7179a6602f3e23d| content.5b2b6019e7179a589286065d.',
 		group_alias: 'Shirt| Shoes|',
-		group_description: 'this item works best for the rest| something | else | go',
+		group_description: 'this item works best for the res|',
 		public: 'true',
 
 		published: 'true',
@@ -33,7 +33,11 @@ const mad = new MAD(
 			owner: 'place.id',
 			creator: 'profile.id'
 		},
-		demarelKeyed: false,
+		includeKeys: {
+			demare: false,
+			group: true,
+			mare: true
+		},
 		group: 'group',
 		groupCompletion: true
 	}
