@@ -2,7 +2,7 @@ const { MAD, MadValues } = require('../index.js');
 
 let req = {
 	body: {
-		name: 'Medium | Large | Small | XXL',
+		name: 'Medium | Large|',
 
 		attributes_measurements: 'LB|Inch|',
 		attributes_fields: 'Weight | Height | Width ',
@@ -11,8 +11,7 @@ let req = {
 		field_variation:
 			'variation.5bb63f0be7179a6602f3e1e4| variation.5bb63f27e7179a6602f3e1eb| warranty.5bb6400ae7179a6602f3e23c|timing.5bb64059e7179a6602f3e24d| timing.5bb64059e7179a6602f3e24d|  warranty.5bb64024e7179a6602f3e23e|variation.5bb63f27e7179a6602f3e1eb| timing.5bb64059e7179a6602f3e24d| warranty.5bb64017e7179a6602f3e23d| content.5b2b6019e7179a589286065d.',
 		group_alias: 'Shirt| Shoes|',
-		group_description:
-			'this item works best for the rest|  I am writting another description | This is the third and last description',
+		group_description: 'this item works best for the res|',
 		public: 'true',
 
 		published: 'true',
@@ -44,10 +43,10 @@ const mad = new MAD(
 	}
 );
 
-const payload = mad.run();
+const data = mad.run();
 
 const madValues = new MadValues(
-	payload,
+	data,
 	[ 'attributes' ],
 	(addOnSource = []),
 	(options = {
@@ -73,7 +72,5 @@ const madValues = new MadValues(
 	})
 );
 
-let values = madValues.run();
-
-console.log(JSON.stringify(payload));
-console.log(JSON.stringify(values));
+console.log(JSON.stringify(data));
+console.log(JSON.stringify(madValues));

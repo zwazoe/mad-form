@@ -664,10 +664,9 @@ class MadValues extends Papa {
 								let objValueKeys = Object.keys(objValue);
 								if (objValueKeys.includes(newKey)) {
 									if (!objValue[newKey][this.valueKey].includes(source[key])) {
-										let temp = {};
-										temp[this.valueKey] = [];
-										temp[this.valueKey].push(source[key]);
-										objValue[newKey] = Object.assign(temp, this.addOnKeys.addOns);
+										objValue[newKey][this.valueKey].push(source[key]);
+
+										objValue[newKey] = Object.assign(objValue[newKey], this.addOnKeys.addOns);
 									}
 								} else {
 									let temp = {};

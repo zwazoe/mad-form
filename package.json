@@ -1,6 +1,6 @@
 {
 	"name": "mad-form",
-	"version": "2.4.2",
+	"version": "2.4.4",
 	"description": "The only form library you will need. It uses MAD technique that allow you to add multiple items in one click.",
 	"main": "index.js",
 	"scripts": {
@@ -35,7 +35,16 @@
 		"bodyParser",
 		"router",
 		"angular",
-		"vue"
+		"vue",
+		"meteor",
+		"underscore",
+		"d3",
+		"glimmer",
+		"ember",
+		"eurelia",
+		"bootstrap",
+		"backbone",
+		"polymer"
 	],
 
 	"author": "Lesly ZwaZoe Revenge",
