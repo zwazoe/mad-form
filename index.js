@@ -560,22 +560,21 @@ class MadValues extends Papa {
 		embededSource = [],
 		addOnSource = [],
 		options = {
-			skip: [ '_id', 'created_at', 'field', 'owner', 'creator', '__v' ],
+			skip: [],
 			keyed: {
 				key: true,
 				valueAsKey: true,
+				categoryAsKey: true,
+
 				valueKey: 'value',
-				prefix: 'option_',
-				suffix: '_option',
+				prefix: '',
+				suffix: '',
 				addOnKeys: {
 					include: true,
-					prefix: 'value__',
+					prefix: '',
 					categoryKey: 'types',
-					spaceReplacer: '___',
-					addOns: {
-						creator: '00934803408',
-						somone: '0408373'
-					}
+					spaceReplacer: ' ',
+					addOns: {}
 				}
 			}
 		}
@@ -589,6 +588,7 @@ class MadValues extends Papa {
 
 		this.keyed = options.keyed.key;
 		this.valueAsKey = options.keyed.valueAsKey;
+		this.categoryAsKey = options.keyed.categoryAsKey;
 
 		this.prefix = options.keyed.prefix;
 		this.suffix = options.keyed.suffix;
@@ -597,62 +597,7 @@ class MadValues extends Papa {
 		this.valueKey = options.keyed.valueKey;
 	}
 
-	getSource() {
-		let source = [];
-		this.mainSource.forEach((main) => {
-			this.embededSource.forEach((embeded) => {
-				source = source.concat(main[embeded]);
-				delete main[embeded];
-			});
-		});
-
-		source = source.concat(this.mainSource);
-
-		this.addOnSource.forEach((addOn) => {
-			source = source.concat(addOn);
-		});
-
-		return source;
-	}
-	getKeys() {
-		// Get Source
-		let source = [];
-		this.mainSource.forEach((main) => {
-			this.embededSource.forEach((embeded) => {
-				source = source.concat(main[embeded]);
-				delete main[embeded];
-			});
-		});
-
-		source = source.concat(this.mainSource);
-
-		this.addOnSource.forEach((addOn) => {
-			source = source.concat(addOn);
-		});
-
-		// Get Keys
-		let combinedKeys = [];
-
-		if (Array.isArray(source)) {
-			source.forEach((sourceItem) => {
-				try {
-					let newKeys = Object.keys(sourceItem);
-
-					combinedKeys = combinedKeys.concat(newKeys);
-				} catch (err) {}
-			});
-		}
-
-		if (this.skip && combinedKeys.length > 0) {
-			this.skip.forEach((skip) => {
-				combinedKeys.splice(combinedKeys.indexOf(skip), 1);
-			});
-		}
-
-		return combinedKeys;
-	}
-
-	getValue() {
+	run() {
 		// Get Source
 		let sources = [];
 		this.mainSource.forEach((main) => {
@@ -691,11 +636,15 @@ class MadValues extends Papa {
 					if (!this.skip.includes(key)) {
 						let item = source[key];
 						if (item) {
-							if (this.keyed == false) {
+							if (this.keyed == true && this.valueAsKey == false && this.categoryAsKey == false) {
 								if (!keyedValue.includes(item)) {
 									keyedValue.push(source[key]);
 								}
-							} else if (this.addOnKeys.include !== true) {
+							} else if (
+								this.keyed == true &&
+								this.categoryAsKey == true &&
+								this.addOnKeys.include == false
+							) {
 								let newKey = this.prefix + key + this.suffix;
 								let objValueKeys = Object.keys(objValue);
 								if (objValueKeys.includes(newKey)) {
@@ -706,7 +655,27 @@ class MadValues extends Papa {
 									objValue[newKey] = [];
 									objValue[newKey].push(source[key]);
 								}
-							} else {
+							} else if (
+								this.keyed == true &&
+								this.categoryAsKey == true &&
+								this.addOnKeys.include == true
+							) {
+								let newKey = this.prefix + key + this.suffix;
+								let objValueKeys = Object.keys(objValue);
+								if (objValueKeys.includes(newKey)) {
+									if (!objValue[newKey][this.valueKey].includes(source[key])) {
+										let temp = {};
+										temp[this.valueKey] = [];
+										temp[this.valueKey].push(source[key]);
+										objValue[newKey] = Object.assign(temp, this.addOnKeys.addOns);
+									}
+								} else {
+									let temp = {};
+									temp[this.valueKey] = [];
+									temp[this.valueKey].push(source[key]);
+									objValue[newKey] = Object.assign(temp, this.addOnKeys.addOns);
+								}
+							} else if (this.keyed == true && this.valueAsKey == true) {
 								let sourceWithKey = source[key].toString();
 								if (sourceWithKey) {
 									let sourceArray = sourceWithKey.split(' ');
@@ -751,42 +720,17 @@ class MadValues extends Papa {
 			});
 			return valueObj;
 		}
+		if (this.keyed == true && this.valueAsKey == false && this.categoryAsKey == false) {
+			return keyedValue;
+		} else if (this.keyed == true && this.categoryAsKey == true) {
+		} else if (this.keyed == true && this.valueAsKey == true && this.categoryAsKey == false) {
+		}
 
 		if (!this.keyed) {
 			return keyedValue;
 		} else {
 			return objValue;
 		}
-	}
-	run() {
-		let source = this.getSource();
-		let values = [];
-		let combinedKeys = [];
-
-		if (Array.isArray(source)) {
-			source.forEach((sourceItem) => {
-				try {
-					let newKeys = Object.keys(sourceItem);
-					combinedKeys.forEach((element) => {
-						newKeys.splice(newKeys.indexOf(element), 1);
-					});
-
-					combinedKeys = combinedKeys.concat(newKeys);
-
-					if (combinedKeys.length > 0) {
-						combinedKeys.forEach((element) => {
-							if (!skip.includes(element)) {
-								values.push(sourceItem[element]);
-							}
-						});
-					}
-				} catch (err) {}
-			});
-		} else {
-			values.push('is not array');
-		}
-
-		return values;
 	}
 }
 module.exports = { MG: MadGroup, M: Melel, A: Attachel, D: Demarel, MAD, MadValues };

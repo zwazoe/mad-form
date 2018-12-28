@@ -1,31 +1,15 @@
-[
-	{ "types": [ "attributes_fields" ], "creator": "00934803408", "somone": "0408373", "value": "value__weight" },
-	{ "types": [ "attributes_values" ], "creator": "00934803408", "somone": "0408373", "value": "value__32" },
-	{ "types": [ "attributes_fields" ], "creator": "00934803408", "somone": "0408373", "value": "value__height" },
-	{ "types": [ "attributes_values" ], "creator": "00934803408", "somone": "0408373", "value": "value__68" },
-	{ "types": [ "attributes_fields" ], "creator": "00934803408", "somone": "0408373", "value": "value__width" },
-	{ "types": [ "attributes_values" ], "creator": "00934803408", "somone": "0408373", "value": "value__48" },
-	{ "types": [ "attributes_values" ], "creator": "00934803408", "somone": "0408373", "value": "value__56" },
-	{
-		"types": [ "published", "public", "validated" ],
+{
+	"option_attributes_fields_option": { "value": [ "width" ], "creator": "00934803408", "somone": "0408373" },
+	"option_attributes_values_option": { "value": [ "56" ], "creator": "00934803408", "somone": "0408373" },
+	"option_published_option": { "value": [ true ], "creator": "00934803408", "somone": "0408373" },
+	"option_public_option": { "value": [ true ], "creator": "00934803408", "somone": "0408373" },
+	"option_validated_option": { "value": [ true ], "creator": "00934803408", "somone": "0408373" },
+	"option_name_option": { "value": [ "large" ], "creator": "00934803408", "somone": "0408373" },
+	"option_group_alias_option": { "value": [ "shoes" ], "creator": "00934803408", "somone": "0408373" },
+	"option_group_description_option": {
+		"value": [ "this item works bes't for the res" ],
 		"creator": "00934803408",
-		"somone": "0408373",
-		"value": "value__true"
+		"somone": "0408373"
 	},
-	{ "types": [ "name" ], "creator": "00934803408", "somone": "0408373", "value": "value__medium" },
-	{ "types": [ "group_alias" ], "creator": "00934803408", "somone": "0408373", "value": "value__shirt" },
-	{
-		"types": [ "group_description" ],
-		"creator": "00934803408",
-		"somone": "0408373",
-		"value": "value__this___item___works___best___for___the___res"
-	},
-	{ "types": [ "name", "title" ], "creator": "00934803408", "somone": "0408373", "value": "value__large" },
-	{ "types": [ "group_alias" ], "creator": "00934803408", "somone": "0408373", "value": "value__shoes" },
-	{
-		"types": [ "group_description" ],
-		"creator": "00934803408",
-		"somone": "0408373",
-		"value": "value__this___item___works___bes't___for___the___res"
-	}
-]
+	"option_title_option": { "value": [ "large" ], "creator": "00934803408", "somone": "0408373" }
+}

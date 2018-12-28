@@ -1,4 +1,4 @@
-const { MAD, MG, MadValues } = require('../index.js');
+const { MadValues } = require('../index.js');
 
 let req = {
 	body: [
@@ -89,12 +89,57 @@ let req = {
 	]
 };
 
-const madValues = new MadValues(req.body, [ 'attributes' ]);
+const madValues = new MadValues(
+	req.body,
+	[ 'attributes' ],
+	(addOnSource = []),
+	(options = {
+		skip: [ 'created_at', 'field', 'owner', 'creator', '_id' ],
+		keyed: {
+			key: true,
+			valueAsKey: false,
+			categoryAsKey: true,
+			valueKey: 'values',
+			prefix: 'option_',
+			suffix: '_option',
+			addOnKeys: {
+				include: true,
+				prefix: 'value__',
+				categoryKey: 'types',
+				spaceReplacer: '__',
+				addOns: {
+					creator: '00934803408',
+					somone: '0408373'
+				}
+			}
+		}
+	})
+);
 
 // const source = JSON.stringify(madValues.getSource(this.mainSource, this.embededSource, this.addOnSource));
 // const keys = JSON.stringify(madValues.getKeys());
-const value = JSON.stringify(madValues.getValue());
+const value = JSON.stringify(madValues.run());
 // console.log(source);
 
 console.log(value);
 // console.log(value);
+
+// turn the value into contribution if user choses to contributes
+
+// if (place.contributor == true) {
+// 	ContributingOptions.insertMany(contributedValue)
+// 		.then(function(contributed) {
+// 			let points = [];
+// 			contributed.forEach((element) => {
+// 				points.push(element.points);
+// 			});
+// 			earnedPoints = points.reduce(points);
+// 			let bonus = earnedPoints * 2;
+// 			if (earnedPoints > 25) {
+// 				earnedPoints += bonus;
+// 			}
+
+// 			res.json({ payload, earnedPoints, contributed });
+// 		})
+// 		.catch((err) => res.status(404).json({ postnotfound: 'We contributes', error: err }));
+// }
