@@ -1,44 +1,31 @@
 [
+	{ "types": [ "attributes_fields" ], "creator": "00934803408", "somone": "0408373", "value": "value__weight" },
+	{ "types": [ "attributes_values" ], "creator": "00934803408", "somone": "0408373", "value": "value__32" },
+	{ "types": [ "attributes_fields" ], "creator": "00934803408", "somone": "0408373", "value": "value__height" },
+	{ "types": [ "attributes_values" ], "creator": "00934803408", "somone": "0408373", "value": "value__68" },
+	{ "types": [ "attributes_fields" ], "creator": "00934803408", "somone": "0408373", "value": "value__width" },
+	{ "types": [ "attributes_values" ], "creator": "00934803408", "somone": "0408373", "value": "value__48" },
+	{ "types": [ "attributes_values" ], "creator": "00934803408", "somone": "0408373", "value": "value__56" },
 	{
-		"name": "medium",
-		"attributes": [
-			{ "attributes_measurements": "lb", "attributes_fields": "weight", "attributes_values": "32" },
-			{ "attributes_measurements": "inch", "attributes_fields": "height", "attributes_values": "68" },
-			{ "attributes_measurements": "inch", "attributes_fields": "width", "attributes_values": "48" },
-			{ "attributes_measurements": "inch", "attributes_fields": "width", "attributes_values": "56" }
-		],
-		"variation": [ "5bb63f0be7179a6602f3e1e4", "5bb63f27e7179a6602f3e1eb", "5bb63f27e7179a6602f3e1eb" ],
-		"warranty": [ "5bb6400ae7179a6602f3e23c", "5bb64024e7179a6602f3e23e", "5bb64017e7179a6602f3e23d" ],
-		"timing": [ "5bb64059e7179a6602f3e24d", "5bb64059e7179a6602f3e24d", "5bb64059e7179a6602f3e24d" ],
-		"content": [ "5b2b6019e7179a589286065d" ],
-		"group": [],
-		"group_alias": "shirt",
-		"group_description": "this item works best for the res",
-		"public": "true",
-		"published": "true",
-		"owner": "place.id",
-		"creator": "profile.id",
-		"updated_at": 1545848351962
+		"types": [ "published", "public", "validated" ],
+		"creator": "00934803408",
+		"somone": "0408373",
+		"value": "value__true"
 	},
+	{ "types": [ "name" ], "creator": "00934803408", "somone": "0408373", "value": "value__medium" },
+	{ "types": [ "group_alias" ], "creator": "00934803408", "somone": "0408373", "value": "value__shirt" },
 	{
-		"name": "large",
-		"attributes": [
-			{ "attributes_measurements": "lb", "attributes_fields": "weight", "attributes_values": "32" },
-			{ "attributes_measurements": "inch", "attributes_fields": "height", "attributes_values": "68" },
-			{ "attributes_measurements": "inch", "attributes_fields": "width", "attributes_values": "48" },
-			{ "attributes_measurements": "inch", "attributes_fields": "width", "attributes_values": "56" }
-		],
-		"variation": [ "5bb63f0be7179a6602f3e1e4", "5bb63f27e7179a6602f3e1eb", "5bb63f27e7179a6602f3e1eb" ],
-		"warranty": [ "5bb6400ae7179a6602f3e23c", "5bb64024e7179a6602f3e23e", "5bb64017e7179a6602f3e23d" ],
-		"timing": [ "5bb64059e7179a6602f3e24d", "5bb64059e7179a6602f3e24d", "5bb64059e7179a6602f3e24d" ],
-		"content": [ "5b2b6019e7179a589286065d" ],
-		"group": [],
-		"group_alias": "shoes",
-		"group_description": "this item works best for the res",
-		"public": "true",
-		"published": "true",
-		"owner": "place.id",
-		"creator": "profile.id",
-		"updated_at": 1545848351962
+		"types": [ "group_description" ],
+		"creator": "00934803408",
+		"somone": "0408373",
+		"value": "value__this___item___works___best___for___the___res"
+	},
+	{ "types": [ "name", "title" ], "creator": "00934803408", "somone": "0408373", "value": "value__large" },
+	{ "types": [ "group_alias" ], "creator": "00934803408", "somone": "0408373", "value": "value__shoes" },
+	{
+		"types": [ "group_description" ],
+		"creator": "00934803408",
+		"somone": "0408373",
+		"value": "value__this___item___works___bes't___for___the___res"
 	}
 ]

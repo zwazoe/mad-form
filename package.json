@@ -1,10 +1,11 @@
 {
 	"name": "mad-form",
-	"version": "2.3.1",
+	"version": "2.4.0",
 	"description": "The only form library you will need. It uses MAD technique that allow you to add multiple items in one click.",
 	"main": "index.js",
 	"scripts": {
-		"test-all": "node test-directory/test"
+		"test-all": "node test-directory/test",
+		"test-mad-values": "node test-directory/mad_values"
 	},
 	"repository": {
 		"type": "git",

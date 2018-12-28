@@ -1,4 +1,4 @@
-const { MAD, MG } = require('../index.js');
+const { MAD, MG, MadValues } = require('../index.js');
 
 let req = {
 	body: {
