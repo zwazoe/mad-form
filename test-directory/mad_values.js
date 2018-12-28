@@ -99,7 +99,7 @@ const madValues = new MadValues(some.body, [ 'attributes' ], [], {
 		prefix: '',
 		suffix: '',
 		addOnKeys: {
-			include: false,
+			include: true,
 			prefix: '',
 			categoryKey: 'types',
 			spaceReplacer: ' '
@@ -107,13 +107,9 @@ const madValues = new MadValues(some.body, [ 'attributes' ], [], {
 	}
 });
 
-// const source = JSON.stringify(madValues.getSource(this.mainSource, this.embededSource, this.addOnSource));
-// const keys = JSON.stringify(madValues.getKeys());
 const value = JSON.stringify(madValues.run());
-// console.log(source);
 
 console.log(value);
-// console.log(value);
 
 // turn the value into contribution if user choses to contributes
 

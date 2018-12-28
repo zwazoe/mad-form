@@ -1,7 +1,7 @@
 {
 	"name": "mad-form",
-	"version": "2.4.5",
-	"description": "The only form library you will need. It uses MAD technique that allow you to add multiple items in one click.",
+	"version": "2.4.6",
+	"description": "Form system that should be used in all ecommerce, advertising, data visualization, and analytic applications. ",
 	"main": "index.js",
 	"scripts": {
 		"test-all": "node test-directory/test",
@@ -44,7 +44,12 @@
 		"eurelia",
 		"bootstrap",
 		"backbone",
-		"polymer"
+		"polymer",
+		"data",
+		"big",
+		"analytics",
+		"advertising",
+		"marketing"
 	],
 
 	"author": "Lesly ZwaZoe Revenge",

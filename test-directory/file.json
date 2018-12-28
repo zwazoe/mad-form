@@ -1,6 +1,11 @@
-{
-	"attributes_fields": { "values": [ "width", "height" ] },
-	"attributes_values": { "values": [ "46" ] },
-	"attributes_measurements": { "values": [ "inch" ] },
-	"name": { "values": [ "miami", "new york" ] }
-}
+[
+	{ "values": [ "weight", "height", "width" ], "name": "attributes_fields" },
+	{ "values": [ "32", "68", "48", "56" ], "name": "attributes_values" },
+	{ "values": [ "medium", "large" ], "name": "name" },
+	{ "values": [ "shirt", "shoes" ], "name": "group_alias" },
+	{
+		"values": [ "this item works best for the res", "this item works bes't for the res" ],
+		"name": "group_description"
+	},
+	{ "values": [ "large" ], "name": "title" }
+]

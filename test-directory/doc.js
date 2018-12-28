@@ -1,76 +1,33 @@
-const { MAD, MadValues } = require('../index.js');
-
-let req = {
-	body: {
-		name: 'Medium | Large|',
-
-		attributes_measurements: 'LB|Inch|',
-		attributes_fields: 'Weight | Height | Width ',
-		attributes_values: '32 | 68 | 48 | 56',
-		field_name: 'variation| warranty| timing|content|group|',
-		field_variation:
-			'variation.5bb63f0be7179a6602f3e1e4| variation.5bb63f27e7179a6602f3e1eb| warranty.5bb6400ae7179a6602f3e23c|timing.5bb64059e7179a6602f3e24d| timing.5bb64059e7179a6602f3e24d|  warranty.5bb64024e7179a6602f3e23e|variation.5bb63f27e7179a6602f3e1eb| timing.5bb64059e7179a6602f3e24d| warranty.5bb64017e7179a6602f3e23d| content.5b2b6019e7179a589286065d.',
-		group_alias: 'Shirt| Shoes|',
-		group_description: 'this item works best for the res|',
-		public: 'true',
-
-		published: 'true',
-		owner: '5b1e87c4f9e3a6ddec3a6f1b',
-		creator: '5b1e87c4f9e3a6ddec3a6f1b',
-		updated_at: Date.now()
-	}
-};
-
-const mad = new MAD(
-	req.body, // data source
-	'name', // the form name
-	[ '_', '|', '.' ], // spliters: key, value, and options (opitions uses on demarel)
-	[ 'attributes' ], // melel field which will get by rows.
-	[ 'field' ], //// demarel fields which will mix and match it.
+[
 	{
-		attache: [],
-		overide: {
-			owner: 'place.id',
-			creator: 'profile.id'
-		},
-		includeKeys: {
-			demare: false,
-			group: true,
-			mare: true
-		},
-		group: 'group',
-		groupCompletion: true
-	}
-);
-
-const data = mad.run();
-
-const madValues = new MadValues(
-	data,
-	[ 'attributes' ],
-	(addOnSource = []),
-	(options = {
-		skip: [ 'created_at', 'field', 'owner', 'creator', '_id' ],
-		keyed: {
-			key: true,
-			valueAsKey: false,
-			categoryAsKey: true,
-			valueKey: 'values',
-			prefix: 'option_',
-			suffix: '_option',
-			addOnKeys: {
-				include: true,
-				prefix: 'value__',
-				categoryKey: 'types',
-				spaceReplacer: '__',
-				addOns: {
-					creator: '00934803408',
-					somone: '0408373'
-				}
-			}
-		}
-	})
-);
-
-console.log(JSON.stringify(data));
-console.log(JSON.stringify(madValues));
+		attributes: [
+			{ size_fields: 'weight', size_value: 46, size_measurements: 'lb' },
+			{ size_fields: 'width', size_value: 62, size_measurements: 'inch' },
+			{ size_fields: 'height', size_value: 62, size_measurements: 'inch' },
+			{ size_fields: 'length', size_value: 95, size_measurements: 'meter' }
+		],
+		public: false,
+		name: 'Medium',
+		published: true,
+		alias: pants,
+		description: 'this size goes well with lifestyle',
+		warranty: [ '5bb6400ae7179a6602f3e23c', '5bb64024e7179a6602f3e23e', '5bb64017e7179a6602f3e23d' ],
+		timing: [ '5bb64059e7179a6602f3e24dwf', '5bb64059e7179a6602f3e24dfsafs', '5bb64059e7179a6602f3e24dgw' ]
+	},
+	{
+		attributes: [
+			{ size_fields: 'weight', size_value: 46, size_measurements: 'lb' },
+			{ size_fields: 'width', size_value: 62, size_measurements: 'inch' },
+			{ size_fields: 'height', size_value: 62, size_measurements: 'inch' },
+			{ size_fields: 'length', size_value: 95, size_measurements: 'meter' }
+		],
+		public: false,
+		name: 'Large',
+		published: true,
+		alias: 'shirt',
+		description: 'this is another size that goes well with this lifestyle',
+		warranty: [ '5bb6400ae7179a6602f3e23c', '5bb64024e7179a6602f3e23e', '5bb64017e7179a6602f3e23d' ],
+		timing: [ '5bb64059e7179a6602f3e24dwf', '5bb64059e7179a6602f3e24dfsafs', '5bb64059e7179a6602f3e24dgw' ]
+	},
+	''
+];

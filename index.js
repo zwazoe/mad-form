@@ -568,7 +568,7 @@ class MadValues extends Papa {
 			skip: [],
 			keyed: {
 				key: true,
-				valueAsKey: true,
+				valueAsKey: false,
 				categoryAsKey: true,
 
 				valueKey: 'value',
@@ -579,7 +579,9 @@ class MadValues extends Papa {
 					prefix: '',
 					categoryKey: 'types',
 					spaceReplacer: ' ',
-					addOns: {}
+					addOns: {
+						name: 'something'
+					}
 				}
 			}
 		}
@@ -600,6 +602,7 @@ class MadValues extends Papa {
 		this.addOnKeys = options.keyed.addOnKeys;
 		this.keyTitle = options.keyed.keyTitle;
 		this.valueKey = options.keyed.valueKey;
+		this.forceArray = true;
 	}
 
 	run() {
@@ -714,7 +717,24 @@ class MadValues extends Papa {
 			});
 		});
 
-		if (this.valueAsKey) {
+		if (!this.keyed) {
+			return keyedValue;
+		} else if (this.valueAsKey == false && this.categoryAsKey == false) {
+			return keyedValue;
+		} else if (this.valueAsKey == false && this.categoryAsKey == true && this.addOnKeys.include == true) {
+			if (this.forceArray == true) {
+				let arrayFromObj = [];
+				Object.keys(objValue).forEach((element) => {
+					let temp = objValue[element];
+					temp['name'] = element;
+					arrayFromObj.push(temp);
+				});
+
+				return arrayFromObj;
+			} else {
+				return objValue;
+			}
+		} else if (this.valueAsKey) {
 			let valueObj = [];
 			let i = 0;
 			Object.keys(objValue).forEach((element) => {
@@ -723,18 +743,8 @@ class MadValues extends Papa {
 				temp[this.valueKey] = element;
 				valueObj.push(temp);
 			});
-			return valueObj;
-		}
-		if (this.keyed == true && this.valueAsKey == false && this.categoryAsKey == false) {
-			return keyedValue;
-		} else if (this.keyed == true && this.categoryAsKey == true) {
-		} else if (this.keyed == true && this.valueAsKey == true && this.categoryAsKey == false) {
-		}
 
-		if (!this.keyed) {
-			return keyedValue;
-		} else {
-			return objValue;
+			return valueObj;
 		}
 	}
 }

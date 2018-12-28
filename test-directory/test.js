@@ -5,7 +5,7 @@ let req = {
 		name: 'Medium | Large | Small | XXL',
 
 		attributes_measurements: 'LB|Inch|',
-		attributes_fields: 'Weight | Height | Width ',
+		attributes_fields: 'Weight | Height | Width | ',
 		attributes_values: '32 | 68 | 48 | 56',
 		field_name: 'variation| warranty| timing|content|group|',
 		field_variation:
