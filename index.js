@@ -570,7 +570,7 @@ class MadValues extends Papa {
 				key: true,
 				valueAsKey: false,
 				categoryAsKey: true,
-
+				categoryKey: 'name',
 				valueKey: 'value',
 				prefix: '',
 				suffix: '',
@@ -601,7 +601,7 @@ class MadValues extends Papa {
 		this.prefix = options.keyed.prefix;
 		this.suffix = options.keyed.suffix;
 		this.addOnKeys = options.keyed.addOnKeys;
-		this.keyTitle = options.keyed.keyTitle;
+		this.categoryKey = options.keyed.categoryKey;
 		this.valueKey = options.keyed.valueKey;
 		this.forceArray = options.keyed.forceArray;
 	}
@@ -727,13 +727,13 @@ class MadValues extends Papa {
 				let arrayFromObj = [];
 				Object.keys(objValue).forEach((element) => {
 					let temp = objValue[element];
-					temp['name'] = element;
+					temp[this.categoryKey] = element;
 					arrayFromObj.push(temp);
 				});
 
 				return arrayFromObj;
 			} else {
-				return objValue;
+				return objVcategoryKey;
 			}
 		} else if (this.valueAsKey) {
 			let valueObj = [];
