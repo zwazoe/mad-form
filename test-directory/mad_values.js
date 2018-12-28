@@ -1,6 +1,6 @@
 const { MadValues } = require('../index.js');
 
-let req = {
+let some = {
 	body: [
 		{
 			field: {
@@ -89,32 +89,23 @@ let req = {
 	]
 };
 
-const madValues = new MadValues(
-	req.body,
-	[ 'attributes' ],
-	(addOnSource = []),
-	(options = {
-		skip: [ 'created_at', 'field', 'owner', 'creator', '_id' ],
-		keyed: {
-			key: true,
-			valueAsKey: false,
-			categoryAsKey: true,
-			valueKey: 'values',
-			prefix: 'option_',
-			suffix: '_option',
-			addOnKeys: {
-				include: true,
-				prefix: 'value__',
-				categoryKey: 'types',
-				spaceReplacer: '__',
-				addOns: {
-					creator: '00934803408',
-					somone: '0408373'
-				}
-			}
+const madValues = new MadValues(some.body, [ 'attributes' ], [], {
+	skip: [ 'field', 'published', 'public', 'validated', 'owner', 'creator', 'created_at', '__v', '_id' ],
+	keyed: {
+		key: true,
+		valueAsKey: false,
+		categoryAsKey: true,
+		valueKey: 'values',
+		prefix: '',
+		suffix: '',
+		addOnKeys: {
+			include: false,
+			prefix: '',
+			categoryKey: 'types',
+			spaceReplacer: ' '
 		}
-	})
-);
+	}
+});
 
 // const source = JSON.stringify(madValues.getSource(this.mainSource, this.embededSource, this.addOnSource));
 // const keys = JSON.stringify(madValues.getKeys());

@@ -215,7 +215,12 @@ class Melel {
 }
 
 class Demarel {
-	constructor(settings = [ source, vSplit, kSplit, oSplit ], formArgs = []) {
+	constructor(
+		settings = [
+			/* source, vSplit, kSplit, oSplit */
+		],
+		formArgs = []
+	) {
 		this.source = arguments[0][0];
 		this.vSplit = arguments[0][1];
 		this.kSplit = arguments[0][2];
@@ -608,10 +613,11 @@ class MadValues extends Papa {
 		});
 
 		sources = sources.concat(this.mainSource);
-
-		this.addOnSource.forEach((addOn) => {
-			sources = sources.concat(addOn);
-		});
+		if (this.addOnSource.length > 0) {
+			this.addOnSource.forEach((addOn) => {
+				sources = sources.concat(addOn);
+			});
+		}
 
 		// Get Keys
 		let combinedKeys = [];

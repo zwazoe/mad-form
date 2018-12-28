@@ -1,56 +1,6 @@
 {
-	"option_attributes_measurements_option": {
-		"values": [ "lb", "inch" ],
-		"creator": "00934803408",
-		"somone": "0408373"
-	},
-	"option_attributes_fields_option": {
-		"values": [ "weight", "height", "width" ],
-		"creator": "00934803408",
-		"somone": "0408373"
-	},
-	"option_attributes_values_option": {
-		"values": [ "32", "68", "48", "56" ],
-		"creator": "00934803408",
-		"somone": "0408373"
-	},
-	"option_name_option": {
-		"values": [ "medium", "large", "small", "xxl" ],
-		"creator": "00934803408",
-		"somone": "0408373"
-	},
-	"option_variation_option": {
-		"values": [ [ "5bb63f0be7179a6602f3e1e4", "5bb63f27e7179a6602f3e1eb", "5bb63f27e7179a6602f3e1eb" ] ],
-		"creator": "00934803408",
-		"somone": "0408373"
-	},
-	"option_warranty_option": {
-		"values": [ [ "5bb6400ae7179a6602f3e23c", "5bb64024e7179a6602f3e23e", "5bb64017e7179a6602f3e23d" ] ],
-		"creator": "00934803408",
-		"somone": "0408373"
-	},
-	"option_timing_option": {
-		"values": [ [ "5bb64059e7179a6602f3e24d", "5bb64059e7179a6602f3e24d", "5bb64059e7179a6602f3e24d" ] ],
-		"creator": "00934803408",
-		"somone": "0408373"
-	},
-	"option_content_option": {
-		"values": [ [ "5b2b6019e7179a589286065d" ] ],
-		"creator": "00934803408",
-		"somone": "0408373"
-	},
-	"option_group_option": { "values": [ [] ], "creator": "00934803408", "somone": "0408373" },
-	"option_group_alias_option": { "values": [ "shirt", "shoes" ], "creator": "00934803408", "somone": "0408373" },
-	"option_group_description_option": {
-		"values": [
-			"this item works best for the rest",
-			"i am writting another description",
-			"this is the third and last description"
-		],
-		"creator": "00934803408",
-		"somone": "0408373"
-	},
-	"option_public_option": { "values": [ "true" ], "creator": "00934803408", "somone": "0408373" },
-	"option_published_option": { "values": [ "true" ], "creator": "00934803408", "somone": "0408373" },
-	"option_updated_at_option": { "values": [ 1546008729430 ], "creator": "00934803408", "somone": "0408373" }
+	"attributes_fields": { "values": [ "width", "height" ] },
+	"attributes_values": { "values": [ "46" ] },
+	"attributes_measurements": { "values": [ "inch" ] },
+	"name": { "values": [ "miami", "new york" ] }
 }

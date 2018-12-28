@@ -3,6 +3,21 @@
 
 [If you love MAD Form, please add a star on GitHub](https://github.com/zwazoe/mad-form) https://github.com/zwazoe/mad-form
 
+
+### Installing
+````
+npm i mad-form
+
+````
+
+### Full Documentation with Coding Examples
+
+Comming soon: January 15 2019
+
+### Build an ecommerce website
+
+Comming soon: January 15 2019
+
 ### Is it MAD or should it be MAD?
 
 You should  use the MAD technique and MAD Form if you are building an ecommerce, data anaytlics, data visualization, or advertising application. 
@@ -24,13 +39,7 @@ This library output an array of objects. Thereofre, you can conform it to any da
 
 I have test it with MongoDB, PostgreSQL, and MySQL
 
-### Full Documentation with Coding Examples
 
-Comming soon: January 15 2019
-
-### Build an ecommerce website
-
-Comming soon: January 15 2019
 
 ## Why get mad-form
 
@@ -455,16 +464,8 @@ Output
 	]
 ````
 
-## Usage
 
-
-### Installing
-````
-npm i mad-form
-
-````
-
-### Full Testing of mad-form 2.4.3
+## Full Testing of mad-form 2.4.3
 
 
 
@@ -708,6 +709,7 @@ values output
 ### Versioning
 
 2.4.4 is stable with no known issues as of December 28, 2018
+2.4.5 fixed issue with react
 
 ### Thank You!!!
 
