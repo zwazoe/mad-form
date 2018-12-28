@@ -574,6 +574,7 @@ class MadValues extends Papa {
 				valueKey: 'value',
 				prefix: '',
 				suffix: '',
+				forceArray: true,
 				addOnKeys: {
 					include: true,
 					prefix: '',
@@ -602,7 +603,7 @@ class MadValues extends Papa {
 		this.addOnKeys = options.keyed.addOnKeys;
 		this.keyTitle = options.keyed.keyTitle;
 		this.valueKey = options.keyed.valueKey;
-		this.forceArray = true;
+		this.forceArray = options.keyed.forceArray;
 	}
 
 	run() {

@@ -710,7 +710,7 @@ values output
 
 2.4.4 is stable with no known issues as of December 28, 2018
 2.4.5 fixed issue with react
-2.4.6 added Forced Array options. This will make the categoryAsKey output an array instead of an object. 
+2.4.7 added Forced Array options. This will make the categoryAsKey output an array instead of an object. 
 
 ### Thank You!!!
 
