@@ -90,26 +90,9 @@ class Melel {
 		this.elements = [];
 		this.length = 0;
 		this.includeKeys = arguments[3];
-		this.doNotSanatized = arguments[4] ? arguments[4] : []
 	}
 	sanitized(item) {
-		let doNotSanatized = [false, true].concat(this.doNotSanatized)
-		
-		let output = item;
-			if(typeof(item) == "string"){
-				output = item.toLowerCase().trim();
-			} else {
-				output = String.toString(output);
-			}
-
-		doNotSanatized.map((skip) => {
-			if(output.includes(skip) || output == skip || Array.isArray(output) || typeof(output) == "object"){
-				return output;
-			} 
-		})
-
-		return output;
-		
+		return item.toLowerCase().trim();
 	}
 	removeTrailingSplitter(element, splitter) {
 		// sanitized
@@ -274,10 +257,10 @@ class Demarel {
 	run() {
 		// get the name of the fields: i.e. description, timing, warranty, variation.
 		let fields = this.getFields();
+		console.log("here is all of the source from inside mad ", this.source)
+		console.log("here is all of the fields from inside mad ", fields)
+		console.log("here is all of the form args from inside mad ", this.formArgs)
 
-		// console.log("here is all of the source from inside mad ", this.source)
-		// console.log("here is all of the fields from inside mad ", fields)
-		// console.log("here is all of the form args from inside mad ", this.formArgs)
 		// get the option that should apply to that fields.
 		let modelSet = (pos) => {
 			return fields[this.formArgs[pos]];
@@ -291,24 +274,22 @@ class Demarel {
 			}
 
 			// get second set
-			let modelItem = modelSet(1)
-			if(modelItem){
-				for (let i = 0; modelSet(1).length > i; i++) {
-					let field = modelSet(1)[i].toLowerCase().trim();
-					if (field !== undefined) {
-						let prep = modelSet(1)[i];
-						prep = this.sanitized(prep);
-						prep = this.removeTrailingSplitter(prep, this.oSplit);
-						var setArray = prep.split(this.oSplit);
-					}
-					// if the model key existis, push it. if it doesnt exist, create it and then push it.
-					if(model[setArray[0]]){
-						model[setArray[0]].push(setArray[1]);
-					}else  {
-						model[setArray[0]] = [];
-					model[setArray[0]].push(setArray[1]);
 
-					}
+			for (let i = 0; modelSet(1) ? modelSet(1).length : [].length > i; i++) {
+				let field = modelSet(1)[i].toLowerCase().trim();
+				if (field !== undefined) {
+					let prep = modelSet(1)[i];
+					prep = this.sanitized(prep);
+					prep = this.removeTrailingSplitter(prep, this.oSplit);
+					var setArray = prep.split(this.oSplit);
+				}
+				// if the model key existis, push it. if it doesnt exist, create it and then push it.
+				if(model[setArray[0]]){
+					model[setArray[0]].push(setArray[1]);
+				}else  {
+					model[setArray[0]] = [];
+				model[setArray[0]].push(setArray[1]);
+
 				}
 			}
 		}
@@ -350,7 +331,7 @@ class Attachel {
 class MAD {
 	constructor(
 		source,
-		name = "none",
+		name,
 		splitter = [ '_', '|', '.' ],
 		melel = [],
 		demarel = [],
@@ -367,14 +348,13 @@ class MAD {
 			includeGroupKey: 'true'
 		}
 	) {
-		this.source = arguments[0];
 		this.splitter = splitter;
-		this.kSplit = arguments[2][0]; // split the keys attribute_value
-		this.vSplit = arguments[2][1]; // split the values 32 | 68 | 48
-		this.oSplit = arguments[2][2];
-		this.mele = arguments[3]; // items to match similar to rows
-		this.demare = arguments[4];
-		this.title = arguments[1] ? arguments[1] : 'none';
+		this.kSplit = splitter[0]; // split the keys attribute_value
+		this.vSplit = splitter[1]; // split the values 32 | 68 | 48
+		this.oSplit = splitter[2];
+		this.mele = melel; // items to match similar to rows
+		this.demare = demarel;
+		this.title = name;
 		this.source = source;
 		this.data = [];
 		this.defaultAttache = options.attache;
@@ -408,7 +388,7 @@ class MAD {
 		// sanitized
 		let prep = this.sanitized(element);
 		// get last character
-		let trail =  prep.charAt(prep.length - splitter.length);
+		let trail = prep.charAt(prep.length - splitter.length);
 		// if splitter is equal to the last character, remove the last character
 		if (splitter == trail) {
 			prep = prep.slice(0, prep.length - splitter.length);
@@ -538,7 +518,7 @@ class MAD {
 		Object.assign(theFields, readyAttachel);
 
 		let prep = this.source[this.title];
-		prep = prep ? this.removeTrailingSplitter(prep, this.vSplit) : ''
+		prep = this.removeTrailingSplitter(prep, this.vSplit);
 
 		let titles = prep.split(this.vSplit);
 
@@ -795,4 +775,3 @@ class MadValues extends Papa {
 	}
 }
 module.exports = { MG: MadGroup, M: Melel, A: Attachel, D: Demarel, MAD, MadValues };
-export default MAD

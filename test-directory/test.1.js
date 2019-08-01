@@ -10,8 +10,6 @@ let req = {
 		field_name: 'variation| warranty| timing|content|group|',
 		field_variation:
 			'variation.5bb63f0be7179a6602f3e1e4| variation.5bb63f27e7179a6602f3e1eb| warranty.5bb6400ae7179a6602f3e23c|timing.5bb64059e7179a6602f3e24d| timing.5bb64059e7179a6602f3e24d|  warranty.5bb64024e7179a6602f3e23e|variation.5bb63f27e7179a6602f3e1eb| timing.5bb64059e7179a6602f3e24d| warranty.5bb64017e7179a6602f3e23d| content.5b2b6019e7179a589286065d.',
-		category_name: 'category',
-		category_value: 'category.afsfdkfsfs',
 		group_alias: 'Shirt| Shoes|',
 		group_description:
 			'this item works best for the rest|  I am writting another description | This is the third and last description',
@@ -29,7 +27,7 @@ const mad = new MAD(
 	'name', // the form name
 	[ '_', '|', '.' ], // spliters: key, value, and options (opitions uses on demarel)
 	[ 'attributes' ], // melel field which will get by rows.
-	[ 'field', 'category' ], //// demarel fields which will mix and match it.
+	[ 'field' ], //// demarel fields which will mix and match it.
 	{
 		attache: [],
 		overide: {
@@ -37,9 +35,8 @@ const mad = new MAD(
 			creator: 'profile.id'
 		},
 		includeKeys: {
-			demare: true,
-			// if false, this will not output the "group" on the keys. i.e. group_description: "this is a description" it will be only description.
-			group: true,
+			demare: false,
+			group: false,
 			mare: true
 		},
 		group: 'group',
@@ -79,4 +76,4 @@ const madValues = new MadValues(
 let values = madValues.run();
 
 console.log(JSON.stringify(payload, null, 4));
-console.log(JSON.stringify(payload, null, 4));
+// console.log(JSON.stringify(values));
