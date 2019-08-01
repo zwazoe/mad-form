@@ -795,4 +795,3 @@ class MadValues extends Papa {
 	}
 }
 module.exports = { MG: MadGroup, M: Melel, A: Attachel, D: Demarel, MAD, MadValues };
-export default MAD
