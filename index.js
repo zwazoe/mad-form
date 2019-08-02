@@ -1,9 +1,13 @@
 class Papa {
 	constructor() {}
-	sanitized(item) {
-		return item.toLowerCase().trim();
-	}
 
+	sanitized(item) {
+		let field = item
+		if(typeof(field) == "string"){
+			field = field.toLowerCase().trim();
+		} 
+		return field
+	}
 	removeTrailingSplitter(element, splitter) {
 		// sanitized
 		let prep = this.sanitized(element);
@@ -246,7 +250,12 @@ class Demarel {
 		this.fields = {};
 	}
 	sanitized(item) {
-		return item.toLowerCase().trim();
+
+		if(typeof(item) == "string"){
+			output = item.toLowerCase().trim();
+		} else {
+			output = String.toString(output);
+		}
 	}
 	removeTrailingSplitter(element, splitter) {
 		// sanitized
@@ -262,10 +271,15 @@ class Demarel {
 
 	getFields() {
 		for (let i = 0; this.formArgs.length > i; i++) {
-			let prep = this.source[this.formArgs[i]];
+			let item = this.formArgs[i];
+			if(typeof(item) == "string"){
+				item = item.toLowerCase().trim();
+			} 
+			let prep = this.source[item];
 			prep = this.removeTrailingSplitter(prep, this.vSplit);
 			if (prep !== undefined) {
-				this.fields[this.formArgs[i].toLowerCase().trim()] = prep.split(this.vSplit);
+				let item = this.formArgs[i];
+				this.fields[item] = prep.split(this.vSplit);
 			}
 		}
 		return this.fields;
@@ -287,14 +301,21 @@ class Demarel {
 		if (Object.keys(fields).length > 0) {
 			// create an empty array for each modelSet and assign it to model array.
 			for (let i = 0; modelSet(0).length > i; i++) {
-				model[modelSet(0)[i].toLowerCase().trim()] = [];
+				let item = modelSet(0)[i]
+				if(typeof(item) == "string"){
+					item = item.toLowerCase().trim();
+				} 
+				model[item] = [];
 			}
 
 			// get second set
 			let modelItem = modelSet(1)
 			if(modelItem){
 				for (let i = 0; modelSet(1).length > i; i++) {
-					let field = modelSet(1)[i].toLowerCase().trim();
+					let field = modelSet(1)[i]
+					if(typeof(field) == "string"){
+						field = field.toLowerCase().trim();
+					} 
 					if (field !== undefined) {
 						let prep = modelSet(1)[i];
 						prep = this.sanitized(prep);
@@ -324,7 +345,11 @@ class Attachel {
 		this.formArgs = arguments[1];
 	}
 	sanitized(item) {
-		item.toLowerCase().trim();
+		let field = item
+		if(typeof(field) == "string"){
+			field = field.toLowerCase().trim();
+		} 
+		return field
 	}
 	run() {
 		let fields = {};
@@ -386,8 +411,11 @@ class MAD {
 		this.includeMareKey = options.includeKeys.mare;
 	}
 	sanitized(item) {
-		 item = item ? item.toLowerCase().trim() : item
-		return item
+		let field = item
+		if(typeof(field) == "string"){
+			field = field.toLowerCase().trim();
+		} 
+		return field
 	}
 	properlized(item) {
 		let output = ''

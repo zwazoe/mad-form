@@ -1,6 +1,6 @@
 {
 	"name": "mad-form",
-	"version": "3.0.1",
+	"version": "3.0.2",
 	"description": "Form system that should be used in all ecommerce, advertising, data visualization, and analytic applications. ",
 	"main": "index.js",
 	"scripts": {
